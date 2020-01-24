@@ -3,7 +3,7 @@ import json
 import main
 
 
-class UnitTest(unittest.TestCase):
+class LICTestCase(unittest.TestCase):
 
     """
     Test case for LIC4 function in module 'main'
