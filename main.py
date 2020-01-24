@@ -33,7 +33,7 @@ def generate_LIC():
     CMV[6]  =    False#LIC6()
     CMV[7]  =    False#LIC7()
     CMV[8]  =    False#LIC8()
-    CMV[9]  =    False#LIC9()
+    CMV[9]  =    LIC9()
     CMV[10] =    False#LIC10()
     CMV[11] =    False#LIC11()
     CMV[12] =    False#LIC12()
