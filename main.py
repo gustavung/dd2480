@@ -74,7 +74,7 @@ def generate_LIC():
     CMV[1]  =    False#LIC1()
     CMV[2]  =    LIC2()
     CMV[3]  =    False#LIC3()
-    CMV[4]  =    False#LIC4()
+    CMV[4]  =    LIC4()
     CMV[5]  =    False#LIC5()
     CMV[6]  =    False#LIC6()
     CMV[7]  =    LIC7()
@@ -107,6 +107,38 @@ def LIC2():
         if angle < PI-EPSILON or angle > PI+EPSILON:
             return True
         i = i + 1
+    return False
+
+def LIC4():
+    """
+    This function creates Launch Interceptor Condition (LIC) number 4.
+    Returns true if requirements are met.
+    The requirements for LIC 4:
+
+    There exist at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants.
+
+    """
+    quads_check = [False for _ in range(0, 4)]
+    c_list = []
+    if 2 <= Q_PTS <= NUMPOINTS and 1 <= QUADS <= 3:
+        for i in range(0, NUMPOINTS - Q_PTS + 1):
+            c_list.append(POINTS[i:i + Q_PTS])
+
+        for i in range(0, len(c_list)):
+            for j in range(0, Q_PTS):
+                if c_list[i][j][0] >= 0 and c_list[i][j][1] >= 0:
+                    quads_check[0] = True
+                elif c_list[i][j][0] <= -1 and c_list[i][j][1] >= 0:
+                    quads_check[1] = True
+                elif c_list[i][j][0] <= 0 and c_list[i][j][1] <= -1:
+                    quads_check[2] = True
+                elif c_list[i][j][0] >= 1 and c_list[i][j][1] <= -1:
+                    quads_check[3] = True
+
+            if len([i for i in range(0, len(quads_check)) if quads_check[i] is True]) > QUADS:
+                return True
+            else:
+                quads_check = [False for _ in range(0, 4)]
     return False
 
 def LIC7():

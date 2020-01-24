@@ -34,6 +34,41 @@ class LICTestCase(unittest.TestCase):
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC2())
 
+    """
+    Test case for LIC4 function in module 'main'
+    """
+    def test_LIC4(self):
+
+        main.Q_PTS = 4
+        main.QUADS = 2
+        main.POINTS = [
+            (7, 8), (-12, 19), (-12, -22), (51, 91),
+            (42, 85), (62, 32), (79, 15), (11, 95),
+            (2, 73), (70, 50), (60, 32), (28, 24),
+            (60, 29), (14, 59), (97, 71), (60, 45),
+            (21, 17), (8, 49), (93, 74), (18, 66),
+            (23, 26), (25, 44), (78, 40), (31, 25),
+            (47, 84), (5, 56), (99, 34), (23, 26)]
+        main.NUMPOINTS = len(main.POINTS)
+
+        self.assertTrue(main.LIC4())
+
+        main.Q_PTS = 3
+        main.QUADS = 2
+        main.POINTS = [
+            (7, 8), (-12, 19), (-12, 22), (51, 91),
+            (42, 85), (62, 32), (79, 15), (11, 95),
+            (2, 73), (-70, -50), (60, -32), (28, 24),
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        self.assertTrue(main.LIC4())
+
+        main.QUADS = 3
+        self.assertFalse(main.LIC4())
+
+        main.Q_PTS = 1
+        self.assertFalse(main.LIC4())
+
 
     """
     Test case for LIC8 function in module 'main'
@@ -52,36 +87,14 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertTrue(main.LIC12())
+        self.assertFalse(main.LIC7())
 
         main.PARAMETERS_T["LENGTH1"] = 2
         main.PARAMETERS_T["K_PTS"] = 2
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3,3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertFalse(main.LIC12())
-
-    """
-    Test case for LIC9 function in module 'main'
-    """
-    def test_lic9(self):
-        main.POINTS = [
-            (3, 3), (-12, 19), (1, 1),
-            (51, 91), (1, 3), (99, 99)
-        ]
-        main.NUMPOINTS = len(main.POINTS)
-        main.C_PTS = 1
-        main.D_PTS = 1
-        main.EPSILON = 2.1
-        main.PI = 3.1415926535
-        self.assertTrue(main.LIC9())
-
-        main.EPSILON = 4
-        self.assertFalse(main.LIC9())
-
-        main.EPSILON = 2.1
-        main.D_PTS = 3
-        self.assertFalse(main.LIC9())
+        self.assertFalse(main.LIC7())
 
     """
        Test case for LIC12 function in module 'main'
@@ -103,7 +116,7 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (0, 0), (0, 0), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertTrue(main.LIC12())
+        self.assertFalse(main.LIC12())
 
         main.PARAMETERS_T["LENGTH1"] = 1
         main.PARAMETERS_T["LENGTH2"] = 1
@@ -119,7 +132,7 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertTrue(main.LIC12())
+        self.assertFalse(main.LIC12())
 
 if __name__ == '__main__':
     unittest.main()
