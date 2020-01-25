@@ -79,7 +79,7 @@ def generate_LIC():
     CMV[6]  =    False#LIC6()
     CMV[7]  =    LIC7()
     CMV[8]  =    False#LIC8()
-    CMV[9]  =    False#LIC9()
+    CMV[9]  =    LIC9()
     CMV[10] =    False#LIC10()
     CMV[11] =    False#LIC11()
     CMV[12] =    LIC12()
@@ -149,6 +149,38 @@ def LIC7():
     """
     if twelvefirst() and NUMPOINTS-1 >= 3:
         return True
+    return False
+
+def LIC9():
+    """
+    This function creates Launch Interceptor Condition (LIC) number 9.
+    Return True if requirements is met.
+    The requirements for LIC 9:
+
+    There exist at least one set of three data points separated by exactly C_PTS and D_PTS
+    consecutive intervening points that forms an angle.
+
+    """
+    if NUMPOINTS > 5 and 1 <= C_PTS and 1 <= D_PTS and (C_PTS + D_PTS) <= (NUMPOINTS-3):
+        for i in range(0, NUMPOINTS-2-C_PTS-D_PTS):
+            a = POINTS[i]                   # Point a
+            v = POINTS[i+1+C_PTS]           # Vertex
+            b = POINTS[i+2+C_PTS+D_PTS]     # Point b
+
+            if a != v and b != v:
+                va = ((a[0] - v[0]), (a[1] - v[1]))  # Vector from vertex v to point a
+                vb = ((b[0] - v[0]), (b[1] - v[1]))  # Vector from vertex v to point b
+
+                dp = va[0] * vb[0] + va[1] * vb[1]  # Dot product of vector va and vb
+
+                ma = math.sqrt(sum(i ** 2 for i in va))  # Magnitude vector va
+                mb = math.sqrt(sum(i ** 2 for i in vb))  # Magnitude vector vb
+
+                angle = math.acos(dp / (ma * mb))   # Angle in radians
+
+                if angle < (PI - EPSILON) or angle > (PI + EPSILON):
+                    return True
+
     return False
 
 def LIC12():

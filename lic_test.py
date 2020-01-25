@@ -71,7 +71,7 @@ class LICTestCase(unittest.TestCase):
 
 
     """
-    Test case for LIC8 function in module 'main'
+    Test case for LIC7 function in module 'main'
     """
     def test_LIC7(self):
 
@@ -95,6 +95,29 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (2, 2), (0, 0), (3,3)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC7())
+
+    """
+    Test case for LIC9 function in module 'main'
+    """
+    def test_LIC9(self):
+
+        main.POINTS = [
+            (3, 3), (-12, 19), (1, 1),
+            (51, 91), (1, 3), (99, 99)
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        main.C_PTS = 1
+        main.D_PTS = 1
+        main.EPSILON = 2.1
+        main.PI = 3.1415926535
+        self.assertTrue(main.LIC9())
+
+        main.EPSILON = 4
+        self.assertFalse(main.LIC9())
+
+        main.EPSILON = 2.1
+        main.D_PTS = 3
+        self.assertFalse(main.LIC9())
 
     """
        Test case for LIC12 function in module 'main'
