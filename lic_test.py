@@ -60,6 +60,27 @@ class LICTestCase(unittest.TestCase):
         main.D_PTS = 3
         self.assertFalse(main.LIC9())
 
+    def test_lic14(self):
+        main.E_PTS = 1
+        main.F_PTS = 1
+        main.NUMPOINTS = 5
+
+        self.assertFalse(main.LIC14())
+
+        main.POINTS = [
+                (3, 3), (-12, 19), (1, 1),
+                (51, 91), (1, 3), (99, 99)
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        main.AREA1 = 4
+        main.AREA2 = 400
+
+        self.assertTrue(main.LIC14())
+
+        main.AREA2 = 3000
+        self.assertFalse(main.LIC14())
+
+
 
 if __name__ == '__main__':
     unittest.main()
