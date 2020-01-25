@@ -40,6 +40,26 @@ class LICTestCase(unittest.TestCase):
         main.Q_PTS = 1
         self.assertFalse(main.LIC4())
 
+    def test_lic9(self):
+
+        main.POINTS = [
+            (3, 3), (-12, 19), (1, 1),
+            (51, 91), (1, 3), (99, 99)
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        main.C_PTS = 1
+        main.D_PTS = 1
+        main.EPSILON = 2.1
+        main.PI = 3.1415926535
+        self.assertTrue(main.LIC9())
+
+        main.EPSILON = 4
+        self.assertFalse(main.LIC9())
+
+        main.EPSILON = 2.1
+        main.D_PTS = 3
+        self.assertFalse(main.LIC9())
+
 
 if __name__ == '__main__':
     unittest.main()
