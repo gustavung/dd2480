@@ -137,7 +137,7 @@ class LICTestCase(unittest.TestCase):
         main.EPSILON = 2.1
         main.D_PTS = 3
         self.assertFalse(main.LIC9())
-        
+
     """
     Test case for LIC10 function in module 'main'
     """
