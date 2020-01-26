@@ -125,6 +125,27 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (1, -1), (3, 6), (2, 1)]
         self.assertTrue(main.LIC5())
 
+    def test_LIC6(self):
+        main.N_PTS = 3
+        main.NUMPOINTS = 4
+        main.DIST = 2
+        main.POINTS = [(0, 0), (2, 2), (-1, 2), (-2,-3)]
+        self.assertTrue(main.LIC6())
+
+        main.DIST = 5.5
+        self.assertFalse(main.LIC6())
+
+
+        main.N_PTS = 4
+        main.NUMPOINTS = 4
+        main.DIST = 29
+        main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
+        self.assertFalse(main.LIC6())
+
+        main.DIST = 28
+        main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
+        self.assertFalse(main.LIC6())
+
     """
     Test case for LIC8 function in module 'main'
     """

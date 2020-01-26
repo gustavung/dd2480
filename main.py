@@ -1,5 +1,6 @@
 import json
 import math
+import numpy as np
 
 f = open("global.json")
 inp = json.load(f)
@@ -55,6 +56,20 @@ def can_be_contained_circle(p1, p2, p3, radius):
 #Helper function
 def euclidian_dist(p1, p2):
     return math.sqrt(pow(p1[0]-p2[0], 2) + pow(p1[1] - p2[1], 2)); #sqrt(dx^2 + dy^2)
+
+
+def dist_to_line(p1, p2, p3):
+    """ Calculates the distance between a line defined by p1 and p2 and a third point p3.
+        It does this by calculating the length of the rejection of the line p3-p1 and p2-p1.
+    """
+    s = (p2[0]-p1[0], p2[1]-p1[1])
+    v = (p3[0]-p1[0], p3[1]-p1[1])
+    if (s[0] is 0 and s[1] is 0):
+        return 0
+    scalar = np.dot(v, s)/np.dot(s, s)
+    projection = (s[0]*scalar, s[1]*scalar)
+
+    return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
 
 """Return the Conditions Met Vector
 
@@ -175,20 +190,41 @@ def LIC4():
                 quads_check = [False for _ in range(0, 4)]
     return False
 
-"""
-This function creates Launch Interceptor Condition (LIC) number 8.
-Returns true if requirements are met.
+def LIC6():
+    """ Determine if the Launch Interceptor Condition (LIC) number 6 is fulfilled.
+        There exists at least one set of N_PTS consecutive data points such that at least one of the
+        points lies a distance greater than DIST from the line joining the first and last of these N_PTS
+        points. If the first and last points of these N_PTS are identical, then the calculated distance
+        to compare with DIST will be the distance from the coincident point to all other points of
+        the N_PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+    """
+    if NUMPOINTS < 3:
+        return False
+    assert DIST >= 0
+    condition_set = []
+    for i in range(0, NUMPOINTS-(N_PTS-1)):
+        points = POINTS[i:i+N_PTS]
+        if points[0] == points[:-1]:
+            condition_set = list(filter(lambda p: euclidian_dist(points[0], p) > DIST, points[1:-1]))
+        else:
+            condition_set = list((filter(lambda p: dist_to_line(points[0], points[-1], p) > DIST, points[1:-1])))
+        if len(condition_set) > 0:
+            return True
+    return False
 
-The requirements for LIC 8:
-
-There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
-intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
-The condition is not met when NUMPOINTS < 5.
-
-1 <= A_PTS , 1 <= B PTS
-A_PTS + B_PTS <= (NUMPOINTS-3)
-"""
 def LIC8():
+    """ This function creates Launch Interceptor Condition (LIC) number 8.
+        Returns true if requirements are met.
+
+        The requirements for LIC 8:
+
+        There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+        The condition is not met when NUMPOINTS < 5.
+
+        1 <= A_PTS , 1 <= B PTS
+        A_PTS + B_PTS <= (NUMPOINTS-3)
+    """
     if NUMPOINTS < 5:
         return False
     for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
