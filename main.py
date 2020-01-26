@@ -389,7 +389,7 @@ def decide():
                 PUM[i][j] = True
 
     for i in range(0, 15):
-        FUV[i] = (PUV is False) or all(PUM[i])
+        FUV[i] = (PUV[i] is False) or all(PUM[i])
 
     LAUNCH = all(FUV)
     if LAUNCH:
