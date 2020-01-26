@@ -27,8 +27,6 @@ PUV = inp["PUV"]
 
 ###################### Main entrypoint ######################
 
-#There exists at least one set of three consecutive data points
-#that are the vertices of a triangle with area greater than AREA1.
 def LIC3():
     for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
         [[x1,y1], [x2,y2], [x3,y3]] = i
@@ -38,9 +36,6 @@ def LIC3():
             return True
     return False
 
-#There exists at least one set of three data points separated by exactly A PTS
-#and B PTS consecutive intervening points, respectively, that cannot be contained
-#within or on a circle of radius RADIUS1. The condition is not met when NUMPOINTS < 5.
 def LIC8():
     if NUMPOINTS < 5:
         return False
