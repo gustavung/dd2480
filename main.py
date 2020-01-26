@@ -27,33 +27,6 @@ PUV = inp["PUV"]
 
 ###################### Main entrypoint ######################
 
-def LIC3():
-    for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
-        [[x1,y1], [x2,y2], [x3,y3]] = i
-        #SHOELACE FORMULA for area: https://en.wikipedia.org/wiki/Shoelace_formula
-        A = abs(1.0*(x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2))/2
-        if A <= AREA1:
-            return True
-    return False
-
-def LIC8():
-    if NUMPOINTS < 5:
-        return False
-    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-        [p1, p2, p3] = i
-        if(not(can_be_contained_circle(p1,p2,p3,RADIUS1))):
-            return True
-    return False
-
-def LIC13():
-    if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
-        return False
-    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-        [p1, p2, p3] = i
-        if(can_be_contained_circle(p1,p2,p3,RADIUS2)): #critera 2
-            return True
-    return False
-
 #Helper function used in LIC8() and LIC13()
 #Input: Three points (x,y) and a radius.
 #Output: True if the points can be contained in a circle with the radius
@@ -106,6 +79,14 @@ def generate_LIC():
     CMV[14] =    LIC14()
     return CMV
 
+def LIC3():
+    for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
+        [[x1,y1], [x2,y2], [x3,y3]] = i
+        #SHOELACE FORMULA for area: https://en.wikipedia.org/wiki/Shoelace_formula
+        A = abs(1.0*(x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2))/2
+        if A <= AREA1:
+            return True
+    return False
 
 """
 This function creates Launch Interceptor Condition (LIC) number 4.
@@ -139,6 +120,14 @@ def LIC4():
                 quads_check = [False for _ in range(0, 4)]
     return False
 
+def LIC8():
+    if NUMPOINTS < 5:
+        return False
+    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
+        [p1, p2, p3] = i
+        if(not(can_be_contained_circle(p1,p2,p3,RADIUS1))):
+            return True
+    return False
 
 """
 This function creates Launch Interceptor Condition (LIC) number 9.
@@ -172,6 +161,14 @@ def LIC9():
 
     return False
 
+def LIC13():
+    if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
+        return False
+    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
+        [p1, p2, p3] = i
+        if(can_be_contained_circle(p1,p2,p3,RADIUS2)): #critera 2
+            return True
+    return False
 
 """
 This function creates Launch Interceptor Condition (LIC) number 14.
@@ -235,7 +232,6 @@ def decide():
         print ("NO")
 
     return (LAUNCH, CMV, PUM, FUV)
-
 
 if __name__ == "__name__":
     decide()
