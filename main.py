@@ -65,7 +65,7 @@ def can_be_contained_circle(p1, p2, p3, radius):
         #triangle is acute
         #calculate the circumradius of the triangle. Found formula online:
         #https://www.mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
-        r = a/(2*math.sinA)
+        r = a/(2*math.sin(A))
         return r < radius
 
 #Helper function
