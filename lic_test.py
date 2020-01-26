@@ -32,6 +32,32 @@ class LICTestCase(unittest.TestCase):
 
         self.assertTrue(main.LIC0())
 
+    def test_LIC1(self):
+        # Testing an acute triangle
+        main.RADIUS1 = 2.8
+        # Smallest circumradius should be about 2.75
+        main.POINTS = [(1,2),(4,2),(3,7)]
+        main.NUMPOINTS = 3
+        self.assertFalse(main.LIC1())
+        main.RADIUS1 = 2.5
+        self.assertTrue(main.LIC1())
+
+        # Testing a right triangle
+        # Smallest circumradius should be about 1.41
+        main.POINTS = [(-2, -2),(-4,-2),(-2, -4)]
+        main.RADIUS1 = 1.4
+        self.assertTrue(main.LIC1())
+        main.RADIUS1 = 1.5
+        self.assertFalse(main.LIC1())
+
+        # Testing am obtuse triangle
+        # Smallest circumradius should be about 2.8
+        main.POINTS = [(-2, -2), (-1, 1), (2,2)]
+        main.RADIUS1 = 2.7
+        self.assertTrue(main.LIC1())
+        main.RADIUS1 = 2.9
+        self.assertFalse(main.LIC1())
+
     """
     Test case for LIC3 function in module 'main'
     """
