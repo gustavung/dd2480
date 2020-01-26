@@ -7,8 +7,16 @@ inp = json.load(f)
 NUMPOINTS = inp["NUMPOINTS"]
 POINTS = inp["POINTS"]
 PARAMETERS_T = inp["PARAMETERS_T"]
+PI = inp["PI"]
+EPSILON = PARAMETERS_T["EPSILON"]
+C_PTS = PARAMETERS_T["C_PTS"]
+D_PTS = PARAMETERS_T["D_PTS"]
+E_PTS = PARAMETERS_T["E_PTS"]
+F_PTS = PARAMETERS_T["F_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
+AREA1 = PARAMETERS_T["AREA1"]
+AREA2 = PARAMETERS_T["AREA2"]
 LCM = inp["LCM"]
 PUV = inp["PUV"]
 
@@ -29,12 +37,12 @@ def generate_LIC():
     CMV[6]  =    False#LIC6()
     CMV[7]  =    False#LIC7()
     CMV[8]  =    False#LIC8()
-    CMV[9]  =    False#LIC9()
+    CMV[9]  =    LIC9()
     CMV[10] =    LIC10()
     CMV[11] =    False#LIC11()
     CMV[12] =    False#LIC12()
     CMV[13] =    False#LIC13()
-    CMV[14] =    False#LIC14()
+    CMV[14] =    LIC14()
     return CMV
 
 """
@@ -153,6 +161,70 @@ def LIC10():
         if triangle_area(i, j, k) > AREA1:
             return True
             
+    return False
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 9.
+Return True if requirements is met.
+The requirements for LIC 9:
+
+There exist at least one set of three data points separated by exactly C_PTS and D_PTS
+consecutive intervening points that forms an angle.
+
+"""
+def LIC9():
+    if NUMPOINTS > 5 and 1 <= C_PTS and 1 <= D_PTS and (C_PTS + D_PTS) <= (NUMPOINTS-3):
+        for i in range(0, NUMPOINTS-2-C_PTS-D_PTS):
+            a = POINTS[i]                   # Point a
+            v = POINTS[i+1+C_PTS]           # Vertex
+            b = POINTS[i+2+C_PTS+D_PTS]     # Point b
+
+            if a != v and b != v:
+                va = ((a[0] - v[0]), (a[1] - v[1]))  # Vector from vertex v to point a
+                vb = ((b[0] - v[0]), (b[1] - v[1]))  # Vector from vertex v to point b
+
+                dp = va[0] * vb[0] + va[1] * vb[1]  # Dot product of vector va and vb
+
+                ma = math.sqrt(sum(i ** 2 for i in va))  # Magnitude vector va
+                mb = math.sqrt(sum(i ** 2 for i in vb))  # Magnitude vector vb
+
+                angle = math.acos(dp / (ma * mb))   # Angle in radians
+
+                if angle < (PI - EPSILON) or angle > (PI + EPSILON):
+                    return True
+
+    return False
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 14.
+Return True if requirements is met.
+The requirements for LIC 14:
+
+There exist at least one set of three data points, 
+separated by exactly E_PTS and F_PTS consecutive intervening points
+that are the vertices of a triangle with area greater then AREA1 and AREA2
+
+"""
+def LIC14():
+    condition = [False, False]
+    if NUMPOINTS > 5 and 0 <= AREA1 and 0 <= AREA2:
+
+        for i in range(0, NUMPOINTS-2-E_PTS-F_PTS):
+            a = POINTS[i]                   # Point a
+            b = POINTS[i+1+E_PTS]           # Point b
+            c = POINTS[i+2+E_PTS+F_PTS]     # Point c
+
+            area = abs(a[0] * (b[1] - c[1]) + b[0] * (c[1] - a[1]) + c[0] * (a[1] - b[1]))
+
+            if area > AREA1:
+                condition[0] = True
+            if area > AREA2:
+                condition[1] = True
+
+        return condition[0] and condition[1]
+
     return False
 
 

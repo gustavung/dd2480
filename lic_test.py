@@ -70,6 +70,47 @@ class LICTestCase(unittest.TestCase):
         main.Q_PTS = 1
         self.assertFalse(main.LIC4())
 
+    def test_lic9(self):
+
+        main.POINTS = [
+            (3, 3), (-12, 19), (1, 1),
+            (51, 91), (1, 3), (99, 99)
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        main.C_PTS = 1
+        main.D_PTS = 1
+        main.EPSILON = 2.1
+        main.PI = 3.1415926535
+        self.assertTrue(main.LIC9())
+
+        main.EPSILON = 4
+        self.assertFalse(main.LIC9())
+
+        main.EPSILON = 2.1
+        main.D_PTS = 3
+        self.assertFalse(main.LIC9())
+
+    def test_lic14(self):
+        main.E_PTS = 1
+        main.F_PTS = 1
+        main.NUMPOINTS = 5
+
+        self.assertFalse(main.LIC14())
+
+        main.POINTS = [
+                (3, 3), (-12, 19), (1, 1),
+                (51, 91), (1, 3), (99, 99)
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        main.AREA1 = 4
+        main.AREA2 = 400
+
+        self.assertTrue(main.LIC14())
+
+        main.AREA2 = 3000
+        self.assertFalse(main.LIC14())
+
+
 
     """
     Test case for LIC5 function in module 'main'
