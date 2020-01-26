@@ -28,22 +28,58 @@ This function is a helper stub for mapping and running the correct LIC.
 """
 def generate_LIC():
     CMV = [False for _ in range(0, 15)]
-    CMV[0]  =    False#LIC0()
+    CMV[0]  =    LIC0()
     CMV[1]  =    False#LIC1()
     CMV[2]  =    False#LIC2()
     CMV[3]  =    False#LIC3()
     CMV[4]  =    LIC4()
-    CMV[5]  =    False#LIC5()
+    CMV[5]  =    LIC5()
     CMV[6]  =    False#LIC6()
     CMV[7]  =    False#LIC7()
     CMV[8]  =    False#LIC8()
     CMV[9]  =    LIC9()
-    CMV[10] =    False#LIC10()
+    CMV[10] =    LIC10()
     CMV[11] =    False#LIC11()
     CMV[12] =    False#LIC12()
     CMV[13] =    False#LIC13()
     CMV[14] =    LIC14()
     return CMV
+
+
+def get_length(i):
+
+    return math.sqrt((POINTS[i][0] - POINTS[i+1][0])**2 + (POINTS[i][1] - POINTS[i+1][1])**2)
+
+
+def triangle_area(i, j, k):
+
+    x1, y1 = POINTS[i][0], POINTS[i][1]
+    x2, y2 = POINTS[j][0], POINTS[j][1]
+    x3, y3 = POINTS[k][0], POINTS[k][1]
+
+    return abs(0.5 * (((x2-x1)*(y3-y1))-((x3-x1)*(y2-y1))))
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 0.
+Returns true if requirements are met.
+
+The requirements for LIC 0:
+
+There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart.
+(0 ≤ LENGTH1)
+"""
+
+
+def LIC0():
+
+    LENGTH1 = PARAMETERS_T["LENGTH1"]
+
+    for i in range(NUMPOINTS-1):
+        if get_length(i) > LENGTH1:
+            return True
+            
+    return False
 
 
 """
@@ -76,6 +112,57 @@ def LIC4():
                 return True
             else:
                 quads_check = [False for _ in range(0, 4)]
+    return False
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 5.
+Returns true if requirements are met.
+
+The requirements for LIC 5:
+
+There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), such
+that X[j] - X[i] < 0. (where i = j-1)
+"""
+
+def LIC5():
+
+    for j in range(1,NUMPOINTS):
+        if POINTS[j][0] < POINTS[j-1][0]:
+            return True
+            
+    return False
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 10.
+Returns true if requirements are met.
+
+The requirements for LIC 10:
+
+There exists at least one set of three data points separated by exactly E_PTS and F_PTS consecutive intervening points, 
+respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met when NUMPOINTS < 5.
+1≤E_PTS,1≤F_PTS
+E_PTS+F_PTS ≤ NUMPOINTS−3
+"""
+
+
+def LIC10():
+
+    if NUMPOINTS < 5:
+        return False
+    
+    E_PTS = PARAMETERS_T["E_PTS"]
+    F_PTS = PARAMETERS_T["F_PTS"]
+    AREA1 = PARAMETERS_T["AREA1"]
+
+    for i in range(NUMPOINTS-E_PTS-F_PTS-2):
+        j = i + E_PTS + 1
+        k = j + F_PTS + 1
+
+        if triangle_area(i, j, k) > AREA1:
+            return True
+            
     return False
 
 
@@ -141,7 +228,6 @@ def LIC14():
         return condition[0] and condition[1]
 
     return False
-
 
 
 """Return a tuple of the launch decision, CMV, PUM and FUV

@@ -5,6 +5,36 @@ import main
 
 class LICTestCase(unittest.TestCase):
 
+
+    """
+    Test case for LIC0 function in module 'main'
+    """
+    def test_LIC0(self):
+        main.PARAMETERS_T["LENGTH1"] = 30
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (1, 1),
+            (1, 3), (2, 2), (-9, -5), (-1, -5),
+            (2, 3), (-1, -5), (0, -2), (2, 2)]
+        main.NUMPOINTS = len(main.POINTS)
+
+        self.assertFalse(main.LIC0())
+
+        main.PARAMETERS_T["LENGTH1"] = 17
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (1, 1),
+            (1, 3), (2, 2), (-1, -5), (-1, -5),
+            (2, 3), (-1, -5), (0, 0), (8, 15)]
+
+        self.assertFalse(main.LIC0())
+
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (1, 1),
+            (1, 3), (2, 2), (-9, -5), (-1, -5),
+            (2, 3), (-1, -5), (0, 0), (8, 15.1)]
+
+        self.assertTrue(main.LIC0())
+
+
     """
     Test case for LIC4 function in module 'main'
     """
@@ -80,6 +110,43 @@ class LICTestCase(unittest.TestCase):
         main.AREA2 = 3000
         self.assertFalse(main.LIC14())
 
+
+
+    """
+    Test case for LIC5 function in module 'main'
+    """
+    def test_LIC5(self):
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (3, 1)]
+        main.NUMPOINTS = len(main.POINTS)
+
+        self.assertFalse(main.LIC5())
+
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (2, 1)]
+
+        self.assertTrue(main.LIC5())
+
+    
+    """
+    Test case for LIC10 function in module 'main'
+    """
+    def test_LIC10(self):
+
+        main.PARAMETERS_T["E_PTS"] = 1
+        main.PARAMETERS_T["F_PTS"] = 1
+        main.PARAMETERS_T["AREA1"] = 0
+        main.POINTS = [
+            (0, 0), (1, -1), (0, 0), (3, 1), (0, 0)]
+        main.NUMPOINTS = len(main.POINTS)
+
+        self.assertFalse(main.LIC10())
+
+        main.PARAMETERS_T["AREA1"] = 18
+        main.POINTS = [
+            (0, 0), (1, -1), (0, 6), (2, 1), (6.01, 0)]
+
+        self.assertTrue(main.LIC10())
 
 
 if __name__ == '__main__':
