@@ -31,8 +31,7 @@ class LICTestCase(unittest.TestCase):
             (2, 3), (-1, -5), (0, 0), (8, 15.1)]
 
         self.assertTrue(main.LIC0())
-    
-    
+
     """
     Test case for LIC3 function in module 'main'
     """
@@ -86,7 +85,6 @@ class LICTestCase(unittest.TestCase):
         main.Q_PTS = 1
         self.assertFalse(main.LIC4())
 
-        
     """
     Test case for LIC5 function in module 'main'
     """
@@ -99,9 +97,8 @@ class LICTestCase(unittest.TestCase):
 
         main.POINTS = [
             (0, 0), (1, -1), (3, 6), (2, 1)]
+        self.assertTrue(main.LIC5())
 
-        self.assertTrue(main.LIC5())    
-        
     """
     Test case for LIC8 function in module 'main'
     """
@@ -157,7 +154,6 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (1, -1), (0, 6), (2, 1), (6.01, 0)]
 
         self.assertTrue(main.LIC10())
-
 
     """
     Test case for LIC13 function in module 'main'
