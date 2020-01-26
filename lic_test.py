@@ -202,6 +202,17 @@ class LICTestCase(unittest.TestCase):
 
         self.assertTrue(main.LIC10())
 
+    def test_lic11(self):
+        main.G_PTS = 7
+        main.NUMPOINTS = 10
+        main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (15, -3), (27, -7), (31, 1)]
+        self.assertFalse(main.LIC11())
+
+        main.G_PTS = 6
+        main.NUMPOINTS = 10
+        main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (0, -3), (15, -7), (31, 1)]
+        self.assertFalse(main.LIC11())
+
     """
     Test case for LIC13 function in module 'main'
     """

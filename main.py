@@ -16,6 +16,7 @@ C_PTS = PARAMETERS_T["C_PTS"]
 D_PTS = PARAMETERS_T["D_PTS"]
 E_PTS = PARAMETERS_T["E_PTS"]
 F_PTS = PARAMETERS_T["F_PTS"]
+G_PTS = PARAMETERS_T["G_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
 AREA1 = PARAMETERS_T["AREA1"]
@@ -315,21 +316,36 @@ def LIC9():
 
     return False
 
-"""
-This function creates Launch Interceptor Condition (LIC) number 13.
-Returns true if requirements are met.
+def LIC11():
+    """ Determine if the Launch Interceptor Condition (LIC) number 11 is fulfilled.
+        There exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by
+        exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The
+        condition is not met when NUMPOINTS < 3.
+    """
+    if NUMPOINTS < 3:
+        return False
+    assert 1 <= G_PTS <= NUMPOINTS
+    for i in range(0, NUMPOINTS-(G_PTS+1)):
+        if POINTS[i+G_PTS+1][0]-POINTS[i][0] < 0:
+            print(POINTS[i+G_PTS+1])
+            print(POINTS[i])
+            return True
+    return False
 
-The requirements for LIC 13:
-
-There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
-intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
-In addition, there exists at least one set of three data points (which can be the same or different
-from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
-intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
-parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
-0 <= RADIUS2
-"""
 def LIC13():
+    """ This function creates Launch Interceptor Condition (LIC) number 13.
+        Returns true if requirements are met.
+
+        The requirements for LIC 13:
+
+        There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+        In addition, there exists at least one set of three data points (which can be the same or different
+        from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
+        parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
+        0 <= RADIUS2
+    """
     if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
         return False
     for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
