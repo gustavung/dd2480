@@ -135,7 +135,7 @@ def generate_LIC():
     CMV[8]  =    LIC8()
     CMV[9]  =    LIC9()
     CMV[10] =    LIC10()
-    CMV[11] =    False#LIC11()
+    CMV[11] =    LIC11()
     CMV[12] =    LIC12()
     CMV[13] =    LIC13()
     CMV[14] =    LIC14()
@@ -362,6 +362,22 @@ def LIC10():
 
     return False
 
+def LIC11():
+    """ Determine if the Launch Interceptor Condition (LIC) number 11 is fulfilled.
+        There exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by
+        exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The
+        condition is not met when NUMPOINTS < 3.
+    """
+    if NUMPOINTS < 3:
+        return False
+    assert 1 <= G_PTS <= NUMPOINTS
+    for i in range(0, NUMPOINTS-(G_PTS+1)):
+        if POINTS[i+G_PTS+1][0]-POINTS[i][0] < 0:
+            print(POINTS[i+G_PTS+1])
+            print(POINTS[i])
+            return True
+    return False
+
 def LIC12():
     """"
     Determine if the Launch Interceptor Condition (LIC) number 12 is fulfilled.
@@ -380,6 +396,7 @@ def LIC13():
     """ This function creates Launch Interceptor Condition (LIC) number 13.
         Returns true if requirements are met.
         The requirements for LIC 13:
+
         There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
         intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
         In addition, there exists at least one set of three data points (which can be the same or different
