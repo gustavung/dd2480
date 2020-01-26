@@ -128,7 +128,6 @@ def generate_LIC():
     CMV[14] =    LIC14()
     return CMV
 
-
 def LIC0():
     """
     This function creates Launch Interceptor Condition (LIC) number 0.
@@ -145,6 +144,18 @@ def LIC0():
         if get_length(i) > LENGTH1:
             return True
 
+    return False
+
+def LIC1():
+    """ Determine if the Launch Interceptor Condition (LIC) number 1 is fulfilled.
+        Is true iff there exists at least one set of three consecutive data points that cannot all be contained
+        within or on a circle of radius RADIUS1.
+    """
+    assert RADIUS1 >= 0
+    for point_seq in zip(POINTS[:-1], POINTS[1:-1], POINTS[2:]):
+        (p1, p2, p3) = point_seq
+        if not (can_be_contained_circle(p1, p2, p3, RADIUS1)):
+            return True
     return False
 
 def LIC2():
