@@ -7,7 +7,7 @@ class LICTestCase(unittest.TestCase):
 
 
     """
-    Test case for LIC5 function in module 'main'
+    Test case for LIC0 function in module 'main'
     """
     def test_LIC0(self):
         main.PARAMETERS_T["LENGTH1"] = 30
