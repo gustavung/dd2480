@@ -32,7 +32,6 @@ class LICTestCase(unittest.TestCase):
 
         self.assertTrue(main.LIC0())
 
-
     """
     Test case for LIC2 function in module 'main'
     """
@@ -127,6 +126,7 @@ class LICTestCase(unittest.TestCase):
 
         main.POINTS = [
             (0, 0), (1, -1), (3, 6), (2, 1)]
+        self.assertTrue(main.LIC5())
 
         self.assertTrue(main.LIC5())
 

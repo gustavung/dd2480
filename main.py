@@ -315,7 +315,6 @@ def LIC10():
 
     return False
 
-
 def LIC12():
     """"
     Determine if the Launch Interceptor Condition (LIC) number 12 is fulfilled.
