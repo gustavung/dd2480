@@ -29,10 +29,19 @@ PUV = inp["PUV"]
 
 ###################### Main entrypoint ######################
 
+def triangle_area(i, j, k):
+    """ Computes the area of a triangle given some indices.
+    """
+    x1, y1 = POINTS[i][0], POINTS[i][1]
+    x2, y2 = POINTS[j][0], POINTS[j][1]
+    x3, y3 = POINTS[k][0], POINTS[k][1]
+
+    return abs(0.5 * (((x2-x1)*(y3-y1))-((x3-x1)*(y2-y1))))
+
 def can_be_contained_circle(p1, p2, p3, radius):
-    """ Helper function used in LIC6, LIC8 and LIC13
+    """ Helper function used in LIC6, LIC8 and LIC13.
         Input: Three points (x,y) and a radius.
-        Output: True if the points can be contained in a circle with the radius
+        Output: True if the points can be contained in a circle with the radius.
     """
     a = euclidean_dist(p1, p2);
     b = euclidean_dist(p1, p3);
@@ -55,6 +64,10 @@ def can_be_contained_circle(p1, p2, p3, radius):
         r = a/(2*math.sin(A))
         return r < radius
 
+def get_length(i):
+    """ Computes the euclidean distance between two points given an index.
+    """
+    return math.sqrt((POINTS[i][0] - POINTS[i+1][0])**2 + (POINTS[i][1] - POINTS[i+1][1])**2)
 
 def euclidean_dist(p1, p2):
     """ Computes the euclidean distance between two points
@@ -76,7 +89,7 @@ def dist_to_line(p1, p2, p3):
     return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
 
 def generate_LIC():
-    """ Return the Conditions Met Vector
+    """ Return the Conditions Met Vector.
         This function is a helper stub for mapping and running the correct LIC.
     """
     CMV = [False for _ in range(0, 15)]
@@ -96,6 +109,22 @@ def generate_LIC():
     CMV[13] =    LIC13()
     CMV[14] =    LIC14()
     return CMV
+
+def LIC0():
+    """ This function creates Launch Interceptor Condition (LIC) number 0.
+        Returns true if requirements are met.
+
+        The requirements for LIC 0:
+
+        There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart.
+        (0 ≤ LENGTH1)
+    """
+    LENGTH1 = PARAMETERS_T["LENGTH1"]
+
+    for i in range(NUMPOINTS-1):
+        if get_length(i) > LENGTH1:
+            return True
+    return False
 
 def LIC1():
     """ Determine if the Launch Interceptor Condition (LIC) number 1 is fulfilled.
@@ -125,37 +154,6 @@ def LIC3():
             return True
     return False
 
-def get_length(i):
-
-    return math.sqrt((POINTS[i][0] - POINTS[i+1][0])**2 + (POINTS[i][1] - POINTS[i+1][1])**2)
-
-
-def triangle_area(i, j, k):
-
-    x1, y1 = POINTS[i][0], POINTS[i][1]
-    x2, y2 = POINTS[j][0], POINTS[j][1]
-    x3, y3 = POINTS[k][0], POINTS[k][1]
-
-    return abs(0.5 * (((x2-x1)*(y3-y1))-((x3-x1)*(y2-y1))))
-
-
-def LIC0():
-    """ This function creates Launch Interceptor Condition (LIC) number 0.
-        Returns true if requirements are met.
-
-        The requirements for LIC 0:
-
-        There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart.
-        (0 ≤ LENGTH1)
-    """
-    LENGTH1 = PARAMETERS_T["LENGTH1"]
-
-    for i in range(NUMPOINTS-1):
-        if get_length(i) > LENGTH1:
-            return True
-            
-    return False
-
 def LIC4():
     """ This function creates Launch Interceptor Condition (LIC) number 4.
         Returns true if requirements are met.
@@ -183,6 +181,22 @@ def LIC4():
                 return True
             else:
                 quads_check = [False for _ in range(0, 4)]
+    return False
+
+
+def LIC5():
+    """ This function creates Launch Interceptor Condition (LIC) number 5.
+        Returns true if requirements are met.
+
+        The requirements for LIC 5:
+
+        There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), such
+        that X[j] - X[i] < 0. (where i = j-1)
+    """
+
+    for j in range(1,NUMPOINTS):
+        if POINTS[j][0] < POINTS[j-1][0]:
+            return True
     return False
 
 def LIC6():
@@ -227,52 +241,6 @@ def LIC8():
             return True
     return False
 
-
-def LIC5():
-    """ This function creates Launch Interceptor Condition (LIC) number 5.
-        Returns true if requirements are met.
-
-        The requirements for LIC 5:
-
-        There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), such
-        that X[j] - X[i] < 0. (where i = j-1)
-    """
-    for j in range(1,NUMPOINTS):
-        if POINTS[j][0] < POINTS[j-1][0]:
-            return True
-            
-    return False
-
-
-
-
-def LIC10():
-    """ This function creates Launch Interceptor Condition (LIC) number 10.
-        Returns true if requirements are met.
-
-        The requirements for LIC 10:
-
-        There exists at least one set of three data points separated by exactly E_PTS and F_PTS consecutive intervening points, 
-        respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met when NUMPOINTS < 5.
-        1≤E_PTS,1≤F_PTS
-        E_PTS+F_PTS ≤ NUMPOINTS−3
-    """
-    if NUMPOINTS < 5:
-        return False
-    
-    E_PTS = PARAMETERS_T["E_PTS"]
-    F_PTS = PARAMETERS_T["F_PTS"]
-    AREA1 = PARAMETERS_T["AREA1"]
-
-    for i in range(NUMPOINTS-E_PTS-F_PTS-2):
-        j = i + E_PTS + 1
-        k = j + F_PTS + 1
-
-        if triangle_area(i, j, k) > AREA1:
-            return True
-            
-    return False
-
 def LIC9():
     """
     This function creates Launch Interceptor Condition (LIC) number 9.
@@ -301,6 +269,34 @@ def LIC9():
 
                 if angle < (PI - EPSILON) or angle > (PI + EPSILON):
                     return True
+
+    return False
+
+def LIC10():
+    """ This function creates Launch Interceptor Condition (LIC) number 10.
+        Returns true if requirements are met.
+
+        The requirements for LIC 10:
+
+        There exists at least one set of three data points separated by exactly E_PTS and F_PTS consecutive intervening points,
+        respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met when NUMPOINTS < 5.
+        1≤E_PTS,1≤F_PTS
+        E_PTS+F_PTS ≤ NUMPOINTS−3
+    """
+
+    if NUMPOINTS < 5:
+        return False
+
+    E_PTS = PARAMETERS_T["E_PTS"]
+    F_PTS = PARAMETERS_T["F_PTS"]
+    AREA1 = PARAMETERS_T["AREA1"]
+
+    for i in range(NUMPOINTS-E_PTS-F_PTS-2):
+        j = i + E_PTS + 1
+        k = j + F_PTS + 1
+
+        if triangle_area(i, j, k) > AREA1:
+            return True
 
     return False
 
