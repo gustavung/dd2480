@@ -45,6 +45,21 @@ def generate_LIC():
     CMV[14] =    LIC14()
     return CMV
 
+
+def get_length(i):
+
+    return math.sqrt((POINTS[i][0] - POINTS[i+1][0])**2 + (POINTS[i][1] - POINTS[i+1][1])**2)
+
+
+def triangle_area(i, j, k):
+
+    x1, y1 = POINTS[i][0], POINTS[i][1]
+    x2, y2 = POINTS[j][0], POINTS[j][1]
+    x3, y3 = POINTS[k][0], POINTS[k][1]
+
+    return abs(0.5 * (((x2-x1)*(y3-y1))-((x3-x1)*(y2-y1))))
+
+
 """
 This function creates Launch Interceptor Condition (LIC) number 0.
 Returns true if requirements are met.
@@ -54,10 +69,6 @@ The requirements for LIC 0:
 There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart.
 (0 ≤ LENGTH1)
 """
-
-def get_length(i):
-
-    return math.sqrt((POINTS[i][0] - POINTS[i+1][0])**2 + (POINTS[i][1] - POINTS[i+1][1])**2)
 
 
 def LIC0():
@@ -134,15 +145,6 @@ respectively, that are the vertices of a triangle with area greater than AREA1. 
 1≤E_PTS,1≤F_PTS
 E_PTS+F_PTS ≤ NUMPOINTS−3
 """
-
-
-def triangle_area(i, j, k):
-
-    x1, y1 = POINTS[i][0], POINTS[i][1]
-    x2, y2 = POINTS[j][0], POINTS[j][1]
-    x3, y3 = POINTS[k][0], POINTS[k][1]
-
-    return abs(0.5 * (((x2-x1)*(y3-y1))-((x3-x1)*(y2-y1))))
 
 
 def LIC10():
