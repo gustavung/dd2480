@@ -29,13 +29,14 @@ PUV = inp["PUV"]
 
 ###################### Main entrypoint ######################
 
-#Helper function used in LIC8() and LIC13()
-#Input: Three points (x,y) and a radius.
-#Output: True if the points can be contained in a circle with the radius
 def can_be_contained_circle(p1, p2, p3, radius):
-    a = euclidian_dist(p1, p2);
-    b = euclidian_dist(p1, p3);
-    c = euclidian_dist(p2, p3);
+    """ Helper function used in LIC6, LIC8 and LIC13
+        Input: Three points (x,y) and a radius.
+        Output: True if the points can be contained in a circle with the radius
+    """
+    a = euclidean_dist(p1, p2);
+    b = euclidean_dist(p1, p3);
+    c = euclidean_dist(p2, p3);
     if(a == 0 or b == 0 or c == 0):
         return max([a,b,c])/2 < radius #two or more points are equal
 
@@ -54,8 +55,10 @@ def can_be_contained_circle(p1, p2, p3, radius):
         r = a/(2*math.sin(A))
         return r < radius
 
-#Helper function
-def euclidian_dist(p1, p2):
+
+def euclidean_dist(p1, p2):
+    """ Computes the euclidean distance between two points
+    """
     return math.sqrt(pow(p1[0]-p2[0], 2) + pow(p1[1] - p2[1], 2)); #sqrt(dx^2 + dy^2)
 
 
@@ -72,11 +75,10 @@ def dist_to_line(p1, p2, p3):
 
     return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
 
-"""Return the Conditions Met Vector
-
-This function is a helper stub for mapping and running the correct LIC.
-"""
 def generate_LIC():
+    """ Return the Conditions Met Vector
+        This function is a helper stub for mapping and running the correct LIC.
+    """
     CMV = [False for _ in range(0, 15)]
     CMV[0]  =    LIC0()
     CMV[1]  =    False#LIC1()
@@ -137,19 +139,15 @@ def triangle_area(i, j, k):
     return abs(0.5 * (((x2-x1)*(y3-y1))-((x3-x1)*(y2-y1))))
 
 
-"""
-This function creates Launch Interceptor Condition (LIC) number 0.
-Returns true if requirements are met.
-
-The requirements for LIC 0:
-
-There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart.
-(0 ≤ LENGTH1)
-"""
-
-
 def LIC0():
+    """ This function creates Launch Interceptor Condition (LIC) number 0.
+        Returns true if requirements are met.
 
+        The requirements for LIC 0:
+
+        There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart.
+        (0 ≤ LENGTH1)
+    """
     LENGTH1 = PARAMETERS_T["LENGTH1"]
 
     for i in range(NUMPOINTS-1):
@@ -158,16 +156,12 @@ def LIC0():
             
     return False
 
-
-"""
-This function creates Launch Interceptor Condition (LIC) number 4.
-Returns true if requirements are met.
-The requirements for LIC 4:
-
-There exist at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants.
-
-"""
 def LIC4():
+    """ This function creates Launch Interceptor Condition (LIC) number 4.
+        Returns true if requirements are met.
+        The requirements for LIC 4:
+        There exist at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants.
+    """
     quads_check = [False for _ in range(0, 4)]
     c_list = []
     if 2 <= Q_PTS <= NUMPOINTS and 1 <= QUADS <= 3:
@@ -206,7 +200,7 @@ def LIC6():
     for i in range(0, NUMPOINTS-(N_PTS-1)):
         points = POINTS[i:i+N_PTS]
         if points[0] == points[:-1]:
-            condition_set = list(filter(lambda p: euclidian_dist(points[0], p) > DIST, points[1:-1]))
+            condition_set = list(filter(lambda p: euclidean_dist(points[0], p) > DIST, points[1:-1]))
         else:
             condition_set = list((filter(lambda p: dist_to_line(points[0], points[-1], p) > DIST, points[1:-1])))
         if len(condition_set) > 0:
@@ -233,18 +227,16 @@ def LIC8():
             return True
     return False
 
-"""
-This function creates Launch Interceptor Condition (LIC) number 5.
-Returns true if requirements are met.
-
-The requirements for LIC 5:
-
-There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), such
-that X[j] - X[i] < 0. (where i = j-1)
-"""
 
 def LIC5():
+    """ This function creates Launch Interceptor Condition (LIC) number 5.
+        Returns true if requirements are met.
 
+        The requirements for LIC 5:
+
+        There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), such
+        that X[j] - X[i] < 0. (where i = j-1)
+    """
     for j in range(1,NUMPOINTS):
         if POINTS[j][0] < POINTS[j-1][0]:
             return True
@@ -252,21 +244,19 @@ def LIC5():
     return False
 
 
-"""
-This function creates Launch Interceptor Condition (LIC) number 10.
-Returns true if requirements are met.
-
-The requirements for LIC 10:
-
-There exists at least one set of three data points separated by exactly E_PTS and F_PTS consecutive intervening points, 
-respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met when NUMPOINTS < 5.
-1≤E_PTS,1≤F_PTS
-E_PTS+F_PTS ≤ NUMPOINTS−3
-"""
 
 
 def LIC10():
+    """ This function creates Launch Interceptor Condition (LIC) number 10.
+        Returns true if requirements are met.
 
+        The requirements for LIC 10:
+
+        There exists at least one set of three data points separated by exactly E_PTS and F_PTS consecutive intervening points, 
+        respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met when NUMPOINTS < 5.
+        1≤E_PTS,1≤F_PTS
+        E_PTS+F_PTS ≤ NUMPOINTS−3
+    """
     if NUMPOINTS < 5:
         return False
     
@@ -283,17 +273,15 @@ def LIC10():
             
     return False
 
-
-"""
-This function creates Launch Interceptor Condition (LIC) number 9.
-Return True if requirements is met.
-The requirements for LIC 9:
-
-There exist at least one set of three data points separated by exactly C_PTS and D_PTS
-consecutive intervening points that forms an angle.
-
-"""
 def LIC9():
+    """
+    This function creates Launch Interceptor Condition (LIC) number 9.
+    Return True if requirements is met.
+    The requirements for LIC 9:
+
+    There exist at least one set of three data points separated by exactly C_PTS and D_PTS
+    consecutive intervening points that forms an angle.
+    """
     if NUMPOINTS > 5 and 1 <= C_PTS and 1 <= D_PTS and (C_PTS + D_PTS) <= (NUMPOINTS-3):
         for i in range(0, NUMPOINTS-2-C_PTS-D_PTS):
             a = POINTS[i]                   # Point a
@@ -353,17 +341,15 @@ def LIC13():
             return True
     return False
 
-"""
-This function creates Launch Interceptor Condition (LIC) number 14.
-Return True if requirements is met.
-The requirements for LIC 14:
-
-There exist at least one set of three data points,
-separated by exactly E_PTS and F_PTS consecutive intervening points
-that are the vertices of a triangle with area greater then AREA1 and AREA2
-
-"""
 def LIC14():
+    """ This function creates Launch Interceptor Condition (LIC) number 14.
+	Return True if requirements is met.
+	The requirements for LIC 14:
+
+	There exist at least one set of three data points,
+	separated by exactly E_PTS and F_PTS consecutive intervening points
+	that are the vertices of a triangle with area greater then AREA1 and AREA2
+    """
     condition = [False, False]
     if NUMPOINTS > 5 and 0 <= AREA1 and 0 <= AREA2:
 
@@ -383,14 +369,12 @@ def LIC14():
 
     return False
 
-
-"""Return a tuple of the launch decision, CMV, PUM and FUV
-
-This function will calculate the necessary control vectors and matrices
-as well as deciding whether the missile should launch or not.
-The decision will be printed as NO or YES on standard output.
-"""
 def decide():
+    """Return a tuple of the launch decision, CMV, PUM and FUV
+	This function will calculate the necessary control vectors and matrices
+	as well as deciding whether the missile should launch or not.
+	The decision will be printed as NO or YES on standard output.
+    """
     CMV = generate_LIC()
     PUM = [[False for _ in range(0, 15)] for _ in range (0, 15)]
     FUV = [False for _ in range(0, 15)]
