@@ -16,6 +16,17 @@ B_PTS = PARAMETERS_T["B_PTS"]
 
 ###################### Main entrypoint ######################
 
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 3.
+Returns true if requirements are met.
+
+The requirements for LIC 3:
+
+There exists at least one set of three consecutive data points that are the vertices of a triangle
+with area greater than AREA1. (0 ≤ AREA1)
+"""
 def LIC3():
     for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
         [[x1,y1], [x2,y2], [x3,y3]] = i
@@ -25,6 +36,20 @@ def LIC3():
             return True
     return False
 
+
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 8.
+Returns true if requirements are met.
+
+The requirements for LIC 8:
+
+There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
+intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+The condition is not met when NUMPOINTS < 5.
+1≤A PTS,1≤B PTS
+A PTS+B PTS ≤ (NUMPOINTS−3)
+"""
 def LIC8():
     if NUMPOINTS < 5:
         return False
@@ -34,6 +59,21 @@ def LIC8():
             return True
     return False
 
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 13.
+Returns true if requirements are met.
+
+The requirements for LIC 13:
+
+There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
+intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+In addition, there exists at least one set of three data points (which can be the same or different
+from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
+intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
+parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
+0 ≤ RADIUS2
+"""
 def LIC13():
     if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
         return False
@@ -65,7 +105,7 @@ def can_be_contained_circle(p1, p2, p3, radius):
         #triangle is acute
         #calculate the circumradius of the triangle. Found formula online:
         #https://www.mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
-        r = a/(2*math.sinA)
+        r = a/(2*math.sin(A))
         return r < radius
 
 #Helper function
