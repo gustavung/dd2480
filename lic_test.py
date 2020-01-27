@@ -86,12 +86,18 @@ class LICTestCase(unittest.TestCase):
         self.assertFalse(main.LIC9())
 
     def test_LIC13(self):
+
         main.RADIUS1 = 0
+        main.RADIUS2 = 100
         main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
         main.NUMPOINTS = len(main.POINTS)
         main.A_PTS = 3
         main.B_PTS = 1
-        self.assertFalse(main.LIC13())
+        self.assertTrue(main.LIC8())
+
+
+
+
 
     def test_lic14(self):
         main.E_PTS = 1
