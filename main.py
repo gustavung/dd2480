@@ -89,7 +89,7 @@ Returns true if requirements are met.
 The requirements for LIC 3:
 
 There exists at least one set of three consecutive data points that are the vertices of a triangle
-with area greater than AREA1. (0 ≤ AREA1)
+with area greater than AREA1. (0 <= AREA1)
 """
 def LIC3():
     for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
@@ -141,8 +141,9 @@ The requirements for LIC 8:
 There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
 intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
 The condition is not met when NUMPOINTS < 5.
-1≤A PTS,1≤B PTS
-A PTS+B PTS ≤ (NUMPOINTS−3)
+
+1 <= A_PTS , 1 <= B PTS
+A_PTS + B_PTS <= (NUMPOINTS-3)
 """
 def LIC8():
     if NUMPOINTS < 5:
@@ -198,13 +199,13 @@ In addition, there exists at least one set of three data points (which can be th
 from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
 intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
 parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
-0 ≤ RADIUS2
+0 <= RADIUS2
 """
 def LIC13():
     if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
         return False
-    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-        [p1, p2, p3] = i
+    for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
+
         if(can_be_contained_circle(p1,p2,p3,RADIUS2)): #critera 2
             return True
     return False
