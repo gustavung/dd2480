@@ -2,9 +2,7 @@ import unittest
 import json
 import main
 
-
 class LICTestCase(unittest.TestCase):
-
 
     """
     Test case for LIC0 function in module 'main'
@@ -33,7 +31,25 @@ class LICTestCase(unittest.TestCase):
             (2, 3), (-1, -5), (0, 0), (8, 15.1)]
 
         self.assertTrue(main.LIC0())
+    
+    
+    """
+    Test case for LIC3 function in module 'main'
+    """
+    def test_LIC3(self):
+        main.AREA1 = 1
+        main.POINTS = [[0,0],[1,0],[1,2]] # ==> area = 1
+        main.NUMPOINTS = len(main.POINTS)
 
+        self.assertTrue(main.LIC3())
+        main.AREA1 = 0
+        self.assertFalse(main.LIC3())
+
+        main.POINTS = [[0,0],[1,0],[1,100]] # ==> area = 50
+        main.AREA1 = 51
+        self.assertTrue(main.LIC3())
+        main.AREA1 = 49
+        self.assertFalse(main.LIC3())
 
     """
     Test case for LIC4 function in module 'main'
@@ -70,6 +86,38 @@ class LICTestCase(unittest.TestCase):
         main.Q_PTS = 1
         self.assertFalse(main.LIC4())
 
+        
+    """
+    Test case for LIC5 function in module 'main'
+    """
+    def test_LIC5(self):
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (3, 1)]
+        main.NUMPOINTS = len(main.POINTS)
+
+        self.assertFalse(main.LIC5())
+
+        main.POINTS = [
+            (0, 0), (1, -1), (3, 6), (2, 1)]
+
+        self.assertTrue(main.LIC5())    
+        
+    """
+    Test case for LIC8 function in module 'main'
+    """
+    def test_LIC8(self):
+        main.RADIUS1 = 0
+        main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
+        main.NUMPOINTS = len(main.POINTS)
+        main.A_PTS = 3
+        main.B_PTS = 1
+        self.assertTrue(main.LIC8())
+        main.RADIUS1 = 2
+        self.assertFalse(main.LIC8())
+
+    """
+    Test case for LIC9 function in module 'main'
+    """
     def test_lic9(self):
 
         main.POINTS = [
@@ -89,45 +137,7 @@ class LICTestCase(unittest.TestCase):
         main.EPSILON = 2.1
         main.D_PTS = 3
         self.assertFalse(main.LIC9())
-
-    def test_lic14(self):
-        main.E_PTS = 1
-        main.F_PTS = 1
-        main.NUMPOINTS = 5
-
-        self.assertFalse(main.LIC14())
-
-        main.POINTS = [
-                (3, 3), (-12, 19), (1, 1),
-                (51, 91), (1, 3), (99, 99)
-            ]
-        main.NUMPOINTS = len(main.POINTS)
-        main.AREA1 = 4
-        main.AREA2 = 400
-
-        self.assertTrue(main.LIC14())
-
-        main.AREA2 = 3000
-        self.assertFalse(main.LIC14())
-
-
-
-    """
-    Test case for LIC5 function in module 'main'
-    """
-    def test_LIC5(self):
-        main.POINTS = [
-            (0, 0), (1, -1), (3, 6), (3, 1)]
-        main.NUMPOINTS = len(main.POINTS)
-
-        self.assertFalse(main.LIC5())
-
-        main.POINTS = [
-            (0, 0), (1, -1), (3, 6), (2, 1)]
-
-        self.assertTrue(main.LIC5())
-
-    
+        
     """
     Test case for LIC10 function in module 'main'
     """
@@ -148,6 +158,43 @@ class LICTestCase(unittest.TestCase):
 
         self.assertTrue(main.LIC10())
 
+
+    """
+    Test case for LIC13 function in module 'main'
+    """
+    def test_LIC13(self):
+        main.RADIUS1 = 0
+        main.RADIUS2 = 0
+        main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
+        main.NUMPOINTS = len(main.POINTS)
+        main.A_PTS = 3
+        main.B_PTS = 1
+        self.assertFalse(main.LIC13())
+        main.RADIUS2 = 10
+        self.assertTrue(main.LIC13())
+        
+    """
+    Test case for LIC14 function in module 'main'
+    """
+    def test_lic14(self):
+        main.E_PTS = 1
+        main.F_PTS = 1
+        main.NUMPOINTS = 5
+
+        self.assertFalse(main.LIC14())
+
+        main.POINTS = [
+                (3, 3), (-12, 19), (1, 1),
+                (51, 91), (1, 3), (99, 99)
+            ]
+        main.NUMPOINTS = len(main.POINTS)
+        main.AREA1 = 4
+        main.AREA2 = 400
+
+        self.assertTrue(main.LIC14())
+
+        main.AREA2 = 3000
+        self.assertFalse(main.LIC14())
 
 if __name__ == '__main__':
     unittest.main()

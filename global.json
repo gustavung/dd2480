@@ -1,9 +1,9 @@
 {
     "PI" : 3.1415926535,
-    "PARAMETERS_T" : 
+    "PARAMETERS_T" :
     {
         "LENGTH1" : 0,
-        "RADIUS" : 0,
+        "RADIUS1" : 0,
         "EPSILON" : 0,
         "AREA1" : 0,
         "Q_PTS" : 5,
@@ -24,11 +24,11 @@
     },
     "NUMPOINTS" : 2,
     "POINTS" : [[0,0], [1,1]],
-    "LCM" : 
+    "LCM" :
     [
         ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"]
     ],
-    "PUV" : 
+    "PUV" :
     [
         true,
         true,
