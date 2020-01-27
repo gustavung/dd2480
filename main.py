@@ -80,6 +80,32 @@ def twelvesecond():
         i = i+1
     return False
 
+def can_be_contained_circle(p1, p2, p3, radius):
+    """ Helper function used in LIC6, LIC8 and LIC13.
+        Input: Three points (x,y) and a radius.
+        Output: True if the points can be contained in a circle with the radius.
+    """
+    a = euclidean_dist(p1, p2);
+    b = euclidean_dist(p1, p3);
+    c = euclidean_dist(p2, p3);
+    if(a == 0 or b == 0 or c == 0):
+        return max([a,b,c])/2 < radius #two or more points are equal
+
+    A = math.acos((b*b + c*c - a*a)/(2*b*c))
+    B = math.acos((a*a + c*c - b*b)/(2*a*c))
+    C = math.acos((b*b + a*a - c*c)/(2*b*a))
+    if(A > PI/2 or B > PI/2 or C > PI/2):
+        #triangle is obtuse
+        #take longest distance, set center of circle in the middle of it.
+        #Compare radius = max distance / 2 with radius.
+        return max([a,b,c])/2 < radius
+    else:
+        #triangle is acute
+        #calculate the circumradius of the triangle. Found formula online:
+        #https://www.mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
+        r = a/(2*math.sin(A))
+        return r < radius
+
 def generate_LIC():
     """ Return the Conditions Met Vector.
         This function is a helper stub for mapping and running the correct LIC.
@@ -88,17 +114,17 @@ def generate_LIC():
     CMV[0]  =    LIC0()
     CMV[1]  =    False#LIC1()
     CMV[2]  =    LIC2()
-    CMV[3]  =    False#LIC3()
+    CMV[3]  =    LIC3()
     CMV[4]  =    LIC4()
     CMV[5]  =    LIC5()
     CMV[6]  =    False#LIC6()
     CMV[7]  =    LIC7()
-    CMV[8]  =    False#LIC8()
+    CMV[8]  =    LIC8()
     CMV[9]  =    LIC9()
     CMV[10] =    LIC10()
     CMV[11] =    False#LIC11()
     CMV[12] =    LIC12()
-    CMV[13] =    False#LIC13()
+    CMV[13] =    LIC13()
     CMV[14] =    LIC14()
     return CMV
 
@@ -141,6 +167,20 @@ def LIC2():
         if angle < PI-EPSILON or angle > PI+EPSILON:
             return True
         i = i + 1
+    return False
+
+def LIC3():
+    """ This function creates Launch Interceptor Condition (LIC) number 3.
+        Returns true if requirements are met.
+        The requirements for LIC 3:
+        There exists at least one set of three consecutive data points that are the vertices of a triangle
+        with area greater than AREA1. (0 <= AREA1)
+    """
+    for [[x1,y1], [x2,y2], [x3,y3]] in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
+        #SHOELACE FORMULA for area: https://en.wikipedia.org/wiki/Shoelace_formula
+        A = abs(1.0*(x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2))/2
+        if A <= AREA1:
+            return True
     return False
 
 def LIC4():
@@ -197,6 +237,23 @@ def LIC7():
     """
     if twelvefirst() and NUMPOINTS-1 >= 3:
         return True
+    return False
+
+def LIC8():
+    """ This function creates Launch Interceptor Condition (LIC) number 8.
+        Returns true if requirements are met.
+        The requirements for LIC 8:
+        There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+        The condition is not met when NUMPOINTS < 5.
+        1 <= A_PTS , 1 <= B PTS
+        A_PTS + B_PTS <= (NUMPOINTS-3)
+    """
+    if NUMPOINTS < 5:
+        return False
+    for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
+        if(not(can_be_contained_circle(p1,p2,p3,RADIUS1))):
+            return True
     return False
 
 def LIC9():
@@ -271,6 +328,25 @@ def LIC12():
     """
     if twelvefirst() and twelvesecond() and NUMPOINTS-1 >= 3:
         return True
+    return False
+
+def LIC13():
+    """ This function creates Launch Interceptor Condition (LIC) number 13.
+        Returns true if requirements are met.
+        The requirements for LIC 13:
+        There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+        In addition, there exists at least one set of three data points (which can be the same or different
+        from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
+        parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
+        0 <= RADIUS2
+    """
+    if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
+        return False
+    for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
+        if(can_be_contained_circle(p1,p2,p3,RADIUS2)): #critera 2
+            return True
     return False
 
 def LIC14():

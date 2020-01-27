@@ -2,9 +2,7 @@ import unittest
 import json
 import main
 
-
 class LICTestCase(unittest.TestCase):
-
 
     """
     Test case for LIC0 function in module 'main'
@@ -63,6 +61,24 @@ class LICTestCase(unittest.TestCase):
             (1, 1), (0, 0), (0, 0)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC2())
+
+    """
+    Test case for LIC3 function in module 'main'
+    """
+    def test_LIC3(self):
+        main.AREA1 = 1
+        main.POINTS = [[0,0],[1,0],[1,2]] # ==> area = 1
+        main.NUMPOINTS = len(main.POINTS)
+
+        self.assertTrue(main.LIC3())
+        main.AREA1 = 0
+        self.assertFalse(main.LIC3())
+
+        main.POINTS = [[0,0],[1,0],[1,100]] # ==> area = 50
+        main.AREA1 = 51
+        self.assertTrue(main.LIC3())
+        main.AREA1 = 49
+        self.assertFalse(main.LIC3())
 
     """
     Test case for LIC4 function in module 'main'
@@ -142,10 +158,22 @@ class LICTestCase(unittest.TestCase):
         self.assertFalse(main.LIC7())
 
     """
+    Test case for LIC8 function in module 'main'
+    """
+    def test_LIC8(self):
+        main.RADIUS1 = 0
+        main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
+        main.NUMPOINTS = len(main.POINTS)
+        main.A_PTS = 3
+        main.B_PTS = 1
+        self.assertTrue(main.LIC8())
+        main.RADIUS1 = 2
+        self.assertFalse(main.LIC8())
+
+    """
     Test case for LIC9 function in module 'main'
     """
     def test_LIC9(self):
-
         main.POINTS = [
             (3, 3), (-12, 19), (1, 1),
             (51, 91), (1, 3), (99, 99)
@@ -168,7 +196,6 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC10 function in module 'main'
     """
     def test_LIC10(self):
-
         main.PARAMETERS_T["E_PTS"] = 1
         main.PARAMETERS_T["F_PTS"] = 1
         main.PARAMETERS_T["AREA1"] = 0
@@ -221,6 +248,20 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC12())
+
+    """
+    Test case for LIC13 function in module 'main'
+    """
+    def test_LIC13(self):
+        main.RADIUS1 = 0
+        main.RADIUS2 = 0
+        main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
+        main.NUMPOINTS = len(main.POINTS)
+        main.A_PTS = 3
+        main.B_PTS = 1
+        self.assertFalse(main.LIC13())
+        main.RADIUS2 = 10
+        self.assertTrue(main.LIC13())
 
     """
        Test case for LIC14 function in module 'main'
