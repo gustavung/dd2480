@@ -27,6 +27,9 @@ PUV = inp["PUV"]
 
 ###################### Main entrypoint ######################
 
+
+
+
 #Helper function used in LIC8() and LIC13()
 #Input: Three points (x,y) and a radius.
 #Output: True if the points can be contained in a circle with the radius
@@ -79,6 +82,15 @@ def generate_LIC():
     CMV[14] =    LIC14()
     return CMV
 
+"""
+This function creates Launch Interceptor Condition (LIC) number 3.
+Returns true if requirements are met.
+
+The requirements for LIC 3:
+
+There exists at least one set of three consecutive data points that are the vertices of a triangle
+with area greater than AREA1. (0 ≤ AREA1)
+"""
 def LIC3():
     for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
         [[x1,y1], [x2,y2], [x3,y3]] = i
@@ -120,6 +132,18 @@ def LIC4():
                 quads_check = [False for _ in range(0, 4)]
     return False
 
+"""
+This function creates Launch Interceptor Condition (LIC) number 8.
+Returns true if requirements are met.
+
+The requirements for LIC 8:
+
+There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
+intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+The condition is not met when NUMPOINTS < 5.
+1≤A PTS,1≤B PTS
+A PTS+B PTS ≤ (NUMPOINTS−3)
+"""
 def LIC8():
     if NUMPOINTS < 5:
         return False
@@ -161,6 +185,21 @@ def LIC9():
 
     return False
 
+
+"""
+This function creates Launch Interceptor Condition (LIC) number 13.
+Returns true if requirements are met.
+
+The requirements for LIC 13:
+
+There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
+intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+In addition, there exists at least one set of three data points (which can be the same or different
+from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
+intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
+parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
+0 ≤ RADIUS2
+"""
 def LIC13():
     if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
         return False
@@ -175,7 +214,7 @@ This function creates Launch Interceptor Condition (LIC) number 14.
 Return True if requirements is met.
 The requirements for LIC 14:
 
-There exist at least one set of three data points, 
+There exist at least one set of three data points,
 separated by exactly E_PTS and F_PTS consecutive intervening points
 that are the vertices of a triangle with area greater then AREA1 and AREA2
 
