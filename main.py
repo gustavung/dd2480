@@ -92,8 +92,7 @@ There exists at least one set of three consecutive data points that are the vert
 with area greater than AREA1. (0 <= AREA1)
 """
 def LIC3():
-    for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
-        [[x1,y1], [x2,y2], [x3,y3]] = i
+    for [[x1,y1], [x2,y2], [x3,y3]] in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
         #SHOELACE FORMULA for area: https://en.wikipedia.org/wiki/Shoelace_formula
         A = abs(1.0*(x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2))/2
         if A <= AREA1:
@@ -148,8 +147,7 @@ A_PTS + B_PTS <= (NUMPOINTS-3)
 def LIC8():
     if NUMPOINTS < 5:
         return False
-    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-        [p1, p2, p3] = i
+    for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
         if(not(can_be_contained_circle(p1,p2,p3,RADIUS1))):
             return True
     return False
@@ -205,7 +203,6 @@ def LIC13():
     if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
         return False
     for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-
         if(can_be_contained_circle(p1,p2,p3,RADIUS2)): #critera 2
             return True
     return False
