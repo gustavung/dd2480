@@ -8,6 +8,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC0 function in module 'main'
     """
     def test_LIC0(self):
+        # contract: The LIC0 function should return true if it is satisfied, else it returns false
         main.PARAMETERS_T["LENGTH1"] = 30
         main.POINTS = [
             (0, 0), (1, -1), (3, 6), (1, 1),
@@ -36,6 +37,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC1 function in module 'main'
     """
     def test_LIC1(self):
+        # contract: The LIC1 function should return true if it is satisfied, else it returns false
         # Testing an acute triangle
         main.RADIUS1 = 2.8
         # Smallest circumradius should be about 2.75
@@ -65,6 +67,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC2 function in module 'main'
     """
     def test_LIC2(self):
+        # contract: The LIC2 function should return true if it is satisfied, else it returns false
         main.PARAMETERS_T["EPSILON"] = 0.5  # Tests NUMPOINTS < 3
         main.POINTS = [
             (0, 0), (1, -1)]
@@ -94,6 +97,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC3 function in module 'main'
     """
     def test_LIC3(self):
+        # contract: The LIC3 function should return true if it is satisfied, else it returns false
         main.AREA1 = 1
         main.POINTS = [[0,0],[1,0],[1,2]] # ==> area = 1
         main.NUMPOINTS = len(main.POINTS)
@@ -112,7 +116,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC4 function in module 'main'
     """
     def test_LIC4(self):
-
+        # contract: The LIC4 function should return true if it is satisfied, else it returns false
         main.Q_PTS = 4
         main.QUADS = 2
         main.POINTS = [
@@ -147,6 +151,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC5 function in module 'main'
     """
     def test_LIC5(self):
+        # contract: The LIC5 function should return true if it is satisfied, else it returns false
         main.POINTS = [
             (0, 0), (1, -1), (3, 6), (3, 1)]
         main.NUMPOINTS = len(main.POINTS)
@@ -161,6 +166,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC6 function in module 'main'
     """
     def test_LIC6(self):
+        # contract: The LIC6 function should return true if it is satisfied, else it returns false
         main.N_PTS = 3
         main.NUMPOINTS = 4
         main.DIST = 2
@@ -185,7 +191,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC7 function in module 'main'
     """
     def test_LIC7(self):
-
+        # contract: The LIC7 function should return true if it is satisfied, else it returns false
         main.PARAMETERS_T["LENGTH1"] = 1  # Tests NUMPOINTS < 3
         main.PARAMETERS_T["K_PTS"] = 1
         main.POINTS = [
@@ -211,6 +217,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC8 function in module 'main'
     """
     def test_LIC8(self):
+        # contract: The LIC8 function should return true if it is satisfied, else it returns false
         main.RADIUS1 = 0
         main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
         main.NUMPOINTS = len(main.POINTS)
@@ -224,6 +231,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC9 function in module 'main'
     """
     def test_LIC9(self):
+        # contract: The LIC9 function should return true if it is satisfied, else it returns false
         main.POINTS = [
             (3, 3), (-12, 19), (1, 1),
             (51, 91), (1, 3), (99, 99)
@@ -246,6 +254,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC10 function in module 'main'
     """
     def test_LIC10(self):
+        # contract: The LIC10 function should return true if it is satisfied, else it returns false
         main.PARAMETERS_T["E_PTS"] = 1
         main.PARAMETERS_T["F_PTS"] = 1
         main.PARAMETERS_T["AREA1"] = 0
@@ -265,6 +274,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC11 function in module 'main'
     """
     def test_LIC11(self):
+        # contract: The LIC11 function should return true if it is satisfied, else it returns false
         main.G_PTS = 7
         main.NUMPOINTS = 10
         main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (15, -3), (27, -7), (31, 1)]
@@ -279,7 +289,7 @@ class LICTestCase(unittest.TestCase):
        Test case for LIC12 function in module 'main'
     """
     def test_LIC12(self):
-
+        # contract: The LIC12 function should return true if it is satisfied, else it returns false
         main.PARAMETERS_T["LENGTH1"] = 1  # Tests NUMPOINTS < 3
         main.PARAMETERS_T["LENGTH2"] = 1
         main.PARAMETERS_T["K_PTS"] = 1
@@ -317,6 +327,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC13 function in module 'main'
     """
     def test_LIC13(self):
+        # contract: The LIC13 function should return true if it is satisfied, else it returns false
         main.RADIUS1 = 0
         main.RADIUS2 = 0
         main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
@@ -331,6 +342,7 @@ class LICTestCase(unittest.TestCase):
        Test case for LIC14 function in module 'main'
     """
     def test_LIC14(self):
+        # contract: The LIC14 function should return true if it is satisfied, else it returns false
         main.E_PTS = 1
         main.F_PTS = 1
         main.NUMPOINTS = 5
