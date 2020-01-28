@@ -2,12 +2,11 @@ import unittest
 import json
 import main
 
-
 class LICTestCase(unittest.TestCase):
+
     """
     Test case for LIC0 function in module 'main'
     """
-
     def test_LIC0(self):
         main.PARAMETERS_T["LENGTH1"] = 30
         main.POINTS = [
@@ -32,8 +31,9 @@ class LICTestCase(unittest.TestCase):
             (2, 3), (-1, -5), (0, 0), (8, 15.1)]
 
         self.assertTrue(main.LIC0())
+        
 
-    """
+        """
         Test case for LIC2 function in module 'main'
         """
 
@@ -63,20 +63,49 @@ class LICTestCase(unittest.TestCase):
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC2())
 
+
+    def test_LIC1(self):
+        # Testing an acute triangle
+        main.RADIUS1 = 2.8
+        # Smallest circumradius should be about 2.75
+        main.POINTS = [(1,2),(4,2),(3,7)]
+        main.NUMPOINTS = 3
+        self.assertFalse(main.LIC1())
+        main.RADIUS1 = 2.5
+        self.assertTrue(main.LIC1())
+
+        # Testing a right triangle
+        # Smallest circumradius should be about 1.41
+        main.POINTS = [(-2, -2),(-4,-2),(-2, -4)]
+        main.RADIUS1 = 1.4
+        self.assertTrue(main.LIC1())
+        main.RADIUS1 = 1.5
+        self.assertFalse(main.LIC1())
+
+        # Testing am obtuse triangle
+        # Smallest circumradius should be about 2.8
+        main.POINTS = [(-2, -2), (-1, 1), (2,2)]
+        main.RADIUS1 = 2.7
+        self.assertTrue(main.LIC1())
+        main.RADIUS1 = 2.9
+        self.assertFalse(main.LIC1())
+
     """
     Test case for LIC3 function in module 'main'
     """
 
     def test_LIC3(self):
         main.AREA1 = 1
-        main.POINTS = [[0, 0], [1, 0], [1, 2]]  # ==> area = 1
+        main.POINTS = [[0,0],[1,0],[1,2]] # ==> area = 1
+
         main.NUMPOINTS = len(main.POINTS)
 
         self.assertTrue(main.LIC3())
         main.AREA1 = 0
         self.assertFalse(main.LIC3())
 
-        main.POINTS = [[0, 0], [1, 0], [1, 100]]  # ==> area = 50
+        main.POINTS = [[0,0],[1,0],[1,100]] # ==> area = 50
+
         main.AREA1 = 51
         self.assertTrue(main.LIC3())
         main.AREA1 = 49
@@ -106,8 +135,7 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (7, 8), (-12, 19), (-12, 22), (51, 91),
             (42, 85), (62, 32), (79, 15), (11, 95),
-            (2, 73), (-70, -50), (60, -32), (28, 24),
-        ]
+            (2, 73), (-70, -50), (60, -32), (28, 24)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertTrue(main.LIC4())
 
@@ -132,9 +160,32 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (1, -1), (3, 6), (2, 1)]
 
         self.assertTrue(main.LIC5())
-
     """
-    Test case for LIC8 function in module 'main'
+    Test case for LIC6 function in module 'main'
+    """
+    def test_LIC6(self):
+        main.N_PTS = 3
+        main.NUMPOINTS = 4
+        main.DIST = 2
+        main.POINTS = [(0, 0), (2, 2), (-1, 2), (-2,-3)]
+        self.assertTrue(main.LIC6())
+
+        main.DIST = 5.5
+        self.assertFalse(main.LIC6())
+
+
+        main.N_PTS = 4
+        main.NUMPOINTS = 4
+        main.DIST = 29
+        main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
+        self.assertFalse(main.LIC6())
+
+        main.DIST = 28
+        main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
+        self.assertFalse(main.LIC6())
+        
+    """
+    Test case for LIC7 function in module 'main'
     """
 
     def test_LIC7(self):
@@ -159,10 +210,13 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (2, 2), (0, 0), (3,3)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC12())
-
+        
+    """
+    Test case for LIC8 function in module 'main'
+    """
     def test_LIC8(self):
         main.RADIUS1 = 0
-        main.POINTS = [[0, 0], [-1, -1], [-1, -1], [1, 0], [1, 2]]
+        main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
         main.NUMPOINTS = len(main.POINTS)
         main.A_PTS = 3
         main.B_PTS = 1
@@ -175,10 +229,11 @@ class LICTestCase(unittest.TestCase):
     """
 
     def test_lic9(self):
+
         main.POINTS = [
             (3, 3), (-12, 19), (1, 1),
             (51, 91), (1, 3), (99, 99)
-        ]
+            ]
         main.NUMPOINTS = len(main.POINTS)
         main.C_PTS = 1
         main.D_PTS = 1
@@ -212,6 +267,19 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (1, -1), (0, 6), (2, 1), (6.01, 0)]
 
         self.assertTrue(main.LIC10())
+       """
+       Test case for LIC11 function in module 'main'
+       """
+    def test_lic11(self):
+        main.G_PTS = 7
+        main.NUMPOINTS = 10
+        main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (15, -3), (27, -7), (31, 1)]
+        self.assertFalse(main.LIC11())
+
+        main.G_PTS = 6
+        main.NUMPOINTS = 10
+        main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (0, -3), (15, -7), (31, 1)]
+        self.assertFalse(main.LIC11())
 
     """
        Test case for LIC12 function in module 'main'
@@ -252,8 +320,6 @@ class LICTestCase(unittest.TestCase):
         self.assertTrue(main.LIC12())
 
 
-
-
     """
     Test case for LIC13 function in module 'main'
     """
@@ -261,18 +327,17 @@ class LICTestCase(unittest.TestCase):
     def test_LIC13(self):
         main.RADIUS1 = 0
         main.RADIUS2 = 0
-        main.POINTS = [[0, 0], [-1, -1], [-1, -1], [1, 0], [1, 2]]
+        main.POINTS = [[0,0],[-1,-1],[-1,-1],[1,0],[1,2]]
         main.NUMPOINTS = len(main.POINTS)
         main.A_PTS = 3
         main.B_PTS = 1
         self.assertFalse(main.LIC13())
         main.RADIUS2 = 10
         self.assertTrue(main.LIC13())
-
+        
     """
     Test case for LIC14 function in module 'main'
     """
-
     def test_lic14(self):
         main.E_PTS = 1
         main.F_PTS = 1
@@ -281,9 +346,9 @@ class LICTestCase(unittest.TestCase):
         self.assertFalse(main.LIC14())
 
         main.POINTS = [
-            (3, 3), (-12, 19), (1, 1),
-            (51, 91), (1, 3), (99, 99)
-        ]
+                (3, 3), (-12, 19), (1, 1),
+                (51, 91), (1, 3), (99, 99)]
+
         main.NUMPOINTS = len(main.POINTS)
         main.AREA1 = 4
         main.AREA2 = 400
@@ -296,3 +361,4 @@ class LICTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

@@ -90,6 +90,7 @@ def dist_to_line(p1, p2, p3):
 
     return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
 
+
 def twelvefirst():
     """ Determine if the first condition of LIC12 is fulfilled.
         True if there exists at least one set of two data points, separated by exactly K_PTS consecutive intervening points,
@@ -117,6 +118,7 @@ def twelvesecond():
             return True
         i = i+1
     return False
+
 
 def generate_LIC():
     """ Return the Conditions Met Vector.
@@ -168,6 +170,7 @@ def LIC1():
             return True
     return False
 
+
 def LIC2():
     """ Determine if the Launch Interceptor Condition (LIC) number 2 is fulfilled.
         Is true if there exists at least one set of three consecutive data points which form an angle such that:
@@ -190,12 +193,17 @@ def LIC2():
         i = i + 1
     return False
 
+
 def LIC3():
-    """ Determine if the Launch Interceptor Condition (LIC) number 3 is fulfilled.
-	There exists at least one set of three consecutive data points that are the vertices of a triangle with area greater than AREA1.
+    """ This function creates Launch Interceptor Condition (LIC) number 3.
+        Returns true if requirements are met.
+
+        The requirements for LIC 3:
+
+        There exists at least one set of three consecutive data points that are the vertices of a triangle
+        with area greater than AREA1. (0 <= AREA1)
     """
-    for i in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
-        [[x1,y1], [x2,y2], [x3,y3]] = i
+    for [[x1,y1], [x2,y2], [x3,y3]] in list(zip(POINTS[:], POINTS[1:], POINTS[2:])):
         #SHOELACE FORMULA for area: https://en.wikipedia.org/wiki/Shoelace_formula
         A = abs(1.0*(x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2))/2
         if A <= AREA1:
@@ -205,9 +213,9 @@ def LIC3():
 
 def LIC4():
     """ This function creates Launch Interceptor Condition (LIC) number 4.
-    Returns true if requirements are met.
-    The requirements for LIC 4:
-    There exist at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants.
+        Returns true if requirements are met.
+        The requirements for LIC 4:
+        There exist at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants.
     """
     quads_check = [False for _ in range(0, 4)]
     c_list = []
@@ -270,6 +278,7 @@ def LIC6():
             return True
     return False
 
+
 def LIC7():
     """"
     There exists at least one set of two data points separated by exactly K_PTS consecutive intervening points that are a
@@ -281,14 +290,21 @@ def LIC7():
     return False
 
 def LIC8():
-    """ Determine if the Launch Interceptor Condition (LIC) number 6 is fulfilled.
-	There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive intervening points,
-	respectively, that cannot be contained within or on a circle of radius RADIUS1. The condition is not met when NUMPOINTS < 5.
+    """ This function creates Launch Interceptor Condition (LIC) number 8.
+        Returns true if requirements are met.
+
+        The requirements for LIC 8:
+
+        There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+        The condition is not met when NUMPOINTS < 5.
+
+        1 <= A_PTS , 1 <= B PTS
+        A_PTS + B_PTS <= (NUMPOINTS-3)
     """
     if NUMPOINTS < 5:
         return False
-    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-        [p1, p2, p3] = i
+    for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
         if(not(can_be_contained_circle(p1,p2,p3,RADIUS1))):
             return True
     return False
@@ -324,7 +340,6 @@ def LIC9():
                     return True
 
     return False
-
 
 
 def LIC10():
@@ -371,6 +386,7 @@ def LIC11():
             return True
     return False
 
+
 def LIC12():
     """"
     Determine if the Launch Interceptor Condition (LIC) number 12 is fulfilled.
@@ -385,20 +401,24 @@ def LIC12():
         return True
     return False
 
+
 def LIC13():
-    """ Determine if the Launch Interceptor Condition (LIC) number 11 is fulfilled.
-	There exists at least one set of three data points, separated by exactly A PTS and B PTS
-	consecutive intervening points, respectively, that cannot be contained within or on a circle of
-	radius RADIUS1. In addition, there exists at least one set of three data points (which can be
-	the same or different from the three data points just mentioned) separated by exactly A PTS
-	and B PTS consecutive intervening points, respectively, that can be contained in or on a
-	circle of radius RADIUS2. Both parts must be true for the LIC to be true. The condition is
-	not met when NUMPOINTS < 5.
+    """ This function creates Launch Interceptor Condition (LIC) number 13.
+        Returns true if requirements are met.
+
+        The requirements for LIC 13:
+
+        There exists at least one set of three data points, separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1.
+        In addition, there exists at least one set of three data points (which can be the same or different
+        from the three data points just mentioned) separated by exactly A PTS and B PTS consecutive
+        intervening points, respectively, that can be contained in or on a circle of radius RADIUS2. Both
+        parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 5.
+        0 <= RADIUS2
     """
     if NUMPOINTS < 5 or not(LIC8()): #criteria 1 is equal to LIC8
         return False
-    for i in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
-        [p1, p2, p3] = i
+    for [p1, p2, p3] in list(zip(POINTS[:], POINTS[A_PTS:], POINTS[A_PTS + B_PTS:])):
         if(can_be_contained_circle(p1,p2,p3,RADIUS2)): #critera 2
             return True
     return False
