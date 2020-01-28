@@ -31,8 +31,33 @@ class LICTestCase(unittest.TestCase):
             (2, 3), (-1, -5), (0, 0), (8, 15.1)]
 
         self.assertTrue(main.LIC0())
-    
-    
+
+    def test_LIC1(self):
+        # Testing an acute triangle
+        main.RADIUS1 = 2.8
+        # Smallest circumradius should be about 2.75
+        main.POINTS = [(1,2),(4,2),(3,7)]
+        main.NUMPOINTS = 3
+        self.assertFalse(main.LIC1())
+        main.RADIUS1 = 2.5
+        self.assertTrue(main.LIC1())
+
+        # Testing a right triangle
+        # Smallest circumradius should be about 1.41
+        main.POINTS = [(-2, -2),(-4,-2),(-2, -4)]
+        main.RADIUS1 = 1.4
+        self.assertTrue(main.LIC1())
+        main.RADIUS1 = 1.5
+        self.assertFalse(main.LIC1())
+
+        # Testing am obtuse triangle
+        # Smallest circumradius should be about 2.8
+        main.POINTS = [(-2, -2), (-1, 1), (2,2)]
+        main.RADIUS1 = 2.7
+        self.assertTrue(main.LIC1())
+        main.RADIUS1 = 2.9
+        self.assertFalse(main.LIC1())
+
     """
     Test case for LIC3 function in module 'main'
     """
@@ -86,7 +111,6 @@ class LICTestCase(unittest.TestCase):
         main.Q_PTS = 1
         self.assertFalse(main.LIC4())
 
-        
     """
     Test case for LIC5 function in module 'main'
     """
@@ -99,9 +123,29 @@ class LICTestCase(unittest.TestCase):
 
         main.POINTS = [
             (0, 0), (1, -1), (3, 6), (2, 1)]
+        self.assertTrue(main.LIC5())
 
-        self.assertTrue(main.LIC5())    
-        
+    def test_LIC6(self):
+        main.N_PTS = 3
+        main.NUMPOINTS = 4
+        main.DIST = 2
+        main.POINTS = [(0, 0), (2, 2), (-1, 2), (-2,-3)]
+        self.assertTrue(main.LIC6())
+
+        main.DIST = 5.5
+        self.assertFalse(main.LIC6())
+
+
+        main.N_PTS = 4
+        main.NUMPOINTS = 4
+        main.DIST = 29
+        main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
+        self.assertFalse(main.LIC6())
+
+        main.DIST = 28
+        main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
+        self.assertFalse(main.LIC6())
+
     """
     Test case for LIC8 function in module 'main'
     """
@@ -137,7 +181,7 @@ class LICTestCase(unittest.TestCase):
         main.EPSILON = 2.1
         main.D_PTS = 3
         self.assertFalse(main.LIC9())
-        
+
     """
     Test case for LIC10 function in module 'main'
     """
@@ -158,6 +202,16 @@ class LICTestCase(unittest.TestCase):
 
         self.assertTrue(main.LIC10())
 
+    def test_lic11(self):
+        main.G_PTS = 7
+        main.NUMPOINTS = 10
+        main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (15, -3), (27, -7), (31, 1)]
+        self.assertFalse(main.LIC11())
+
+        main.G_PTS = 6
+        main.NUMPOINTS = 10
+        main.POINTS = [(0, 0), (1, 5), (4, -1), (5, 1), (7, -10), (10, -31), (13, 0), (0, -3), (15, -7), (31, 1)]
+        self.assertFalse(main.LIC11())
 
     """
     Test case for LIC13 function in module 'main'
