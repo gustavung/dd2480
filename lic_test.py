@@ -202,7 +202,7 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertTrue(main.LIC12())
+        self.assertTrue(main.LIC7)
 
         main.PARAMETERS_T["LENGTH1"] = 2
         main.PARAMETERS_T["K_PTS"] = 2
@@ -265,11 +265,11 @@ class LICTestCase(unittest.TestCase):
         main.PARAMETERS_T["AREA1"] = 18
         main.POINTS = [
             (0, 0), (1, -1), (0, 6), (2, 1), (6.01, 0)]
-
         self.assertTrue(main.LIC10())
-       """
-       Test case for LIC11 function in module 'main'
-       """
+
+    """
+    Test case for LIC11 function in module 'main'
+    """
     def test_lic11(self):
         main.G_PTS = 7
         main.NUMPOINTS = 10
@@ -301,7 +301,7 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (0, 0), (0, 0), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertTrue(main.LIC12())
+        self.assertFalse(main.LIC12())
 
         main.PARAMETERS_T["LENGTH1"] = 1
         main.PARAMETERS_T["LENGTH2"] = 1
@@ -317,7 +317,7 @@ class LICTestCase(unittest.TestCase):
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertTrue(main.LIC12())
+        self.assertFalse(main.LIC12())
 
 
     """
