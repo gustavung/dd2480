@@ -1,0 +1,10 @@
+language: python
+
+branches:
+ only:
+  - master
+  - develop
+
+install:
+
+script: python -m unittest lic_test.py
