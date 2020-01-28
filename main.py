@@ -17,13 +17,15 @@ D_PTS = PARAMETERS_T["D_PTS"]
 E_PTS = PARAMETERS_T["E_PTS"]
 F_PTS = PARAMETERS_T["F_PTS"]
 G_PTS = PARAMETERS_T["G_PTS"]
+K_PTS = PARAMETERS_T["K_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
 AREA1 = PARAMETERS_T["AREA1"]
 AREA2 = PARAMETERS_T["AREA2"]
 RADIUS1 = PARAMETERS_T["RADIUS1"]
 RADIUS2 = PARAMETERS_T["RADIUS2"]
-
+LENGTH1 = PARAMETERS_T["LENGTH1"]
+LENGTH2 = PARAMETERS_T["LENGTH2"]
 LCM = inp["LCM"]
 PUV = inp["PUV"]
 
@@ -75,12 +77,12 @@ def generate_LIC():
     CMV[4]  =    False#LIC4()
     CMV[5]  =    False#LIC5()
     CMV[6]  =    False#LIC6()
-    CMV[7]  =    #LIC7()
+    CMV[7]  =    LIC7()
     CMV[8]  =    False#LIC8()
     CMV[9]  =    False#LIC9()
     CMV[10] =    False#LIC10()
     CMV[11] =    False#LIC11()
-    CMV[12] =    #LIC12()
+    CMV[12] =    LIC12()
     CMV[13] =    False#LIC13()
     CMV[14] =    False#LIC14()
     return CMV
@@ -113,7 +115,7 @@ def LIC7():
      distance greater than the length, LENGTH1, apart. The condition is not met when NUMPOINTS < 3.
     1 ≤ K_PTS ≤ (NUMPOINTS − 2)
     """
-    if twelvefirst(POINTS) and NUMPOINTS-1 >= 3:
+    if twelvefirst() and NUMPOINTS-1 >= 3:
         return True
     return False
 
