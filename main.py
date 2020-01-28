@@ -17,13 +17,15 @@ D_PTS = PARAMETERS_T["D_PTS"]
 E_PTS = PARAMETERS_T["E_PTS"]
 F_PTS = PARAMETERS_T["F_PTS"]
 G_PTS = PARAMETERS_T["G_PTS"]
+K_PTS = PARAMETERS_T["K_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
 AREA1 = PARAMETERS_T["AREA1"]
 AREA2 = PARAMETERS_T["AREA2"]
 RADIUS1 = PARAMETERS_T["RADIUS1"]
 RADIUS2 = PARAMETERS_T["RADIUS2"]
-
+LENGTH1 = PARAMETERS_T["LENGTH1"]
+LENGTH2 = PARAMETERS_T["LENGTH2"]
 LCM = inp["LCM"]
 PUV = inp["PUV"]
 
@@ -87,6 +89,34 @@ def dist_to_line(p1, p2, p3):
     projection = (s[0]*scalar, s[1]*scalar)
 
     return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
+
+def twelvefirst():
+    """ Determine if the first condition of LIC12 is fulfilled.
+        True if there exists at least one set of two data points, separated by exactly K_PTS consecutive intervening points,
+        which are a distance greater than the length, LENGTH1, apart.
+    """
+    i = 0
+    j = NUMPOINTS-1
+    while i < j and i+K_PTS < j:
+        (x1, x2) = POINTS[i], POINTS[i+K_PTS]
+        if euclidean_dist(x1, x2) > LENGTH1:
+            return True
+        i = i+1
+    return False
+def twelvesecond():
+    """ Determine if the second condition of LIC12 is fulfilled.
+        True if there exists at least one set of two data points (which can be the same or different from
+        the two data points just mentioned), separated by exactly K_PTS consecutive intervening
+        points, that are a distance less than the length, LENGTH2, apart.
+    """
+    i = 0
+    j = NUMPOINTS-1
+    while i < j and i+K_PTS < j:
+        (x1, x2) = POINTS[i], POINTS[i + K_PTS]
+        if euclidean_dist(x1, x2) < LENGTH2:
+            return True
+        i = i+1
+    return False
 
 def generate_LIC():
     """ Return the Conditions Met Vector.
@@ -240,13 +270,13 @@ def LIC6():
             return True
     return False
 
-def lic7():
+def LIC7():
     """"
     There exists at least one set of two data points separated by exactly K_PTS consecutive intervening points that are a
      distance greater than the length, LENGTH1, apart. The condition is not met when NUMPOINTS < 3.
     1 ≤ K_PTS ≤ (NUMPOINTS − 2)
     """
-    if twelvefirst(POINTS) and NUMPOINTS-1 >= 3:
+    if twelvefirst() and NUMPOINTS-1 >= 3:
         return True
     return False
 
@@ -353,35 +383,6 @@ def LIC12():
     """
     if twelvefirst() and twelvesecond() and NUMPOINTS-1 >= 3:
         return True
-    return False
-
-def twelvefirst():
-    """ Determine if the first condition of LIC12 is fulfilled.
-        True if there exists at least one set of two data points, separated by exactly K_PTS consecutive intervening points,
-        which are a distance greater than the length, LENGTH1, apart.
-    """
-    i = 0
-    j = NUMPOINTS-1
-    while i < j and i+K_PTS < j:
-        (x1, x2) = POINTS[i], POINTS[i+K_PTS]
-        if euclidean_dist(x1, x2) > LENGTH1:
-            return True
-        i = i+1
-    return False
-
-def twelvesecond():
-    """ Determine if the second condition of LIC12 is fulfilled.
-        True if there exists at least one set of two data points (which can be the same or different from
-        the two data points just mentioned), separated by exactly K_PTS consecutive intervening
-        points, that are a distance less than the length, LENGTH2, apart.
-    """
-    i = 0
-    j = NUMPOINTS-1
-    while i < j and i+K_PTS < j:
-        (x1, x2) = POINTS[i], POINTS[i + K_PTS]
-        if euclidean_dist(x1, x2) < LENGTH2:
-            return True
-        i = i+1
     return False
 
 def LIC13():
