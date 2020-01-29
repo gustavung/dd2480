@@ -5,6 +5,66 @@ import main
 class LICTestCase(unittest.TestCase):
 
     """
+    Test case for euclidean_dist function in module 'main'
+    """
+    def test_euclidean_dist(self):
+        p1 = [0,0];
+        p2 = [0,5];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 5);
+        p1 = [0,0];
+        p2 = [-3,4];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 5);
+        p1 = [0,0];
+        p2 = [0,0];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 0);
+        p1 = [-10,0];
+        p2 = [0,0];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 10);
+
+
+    """
+    Test case for get_length function in module 'main'
+    """
+    def test_get_length(self):
+        main.POINTS = [[0,0], [0,5]]
+        self.assertTrue(main.get_length(0) == 5);
+        main.POINTS = [[0,0], [0,0], [-3,4]]
+        self.assertTrue(main.get_length(1) == 5);
+        main.POINTS = [[0,0], [0,0]]
+        self.assertTrue(main.get_length(0) == 0);
+
+    """
+    Test case for triangle_area function in module 'main'
+    """
+    def text_triangle_area(self):
+        main.POINTS = [[0,0], [0,5], [0, 10]]
+        self.assertTrue(main.triangle_area(0,1,2) == 0);
+        main.POINTS = [[0,0], [0,10], [10,10]]
+        self.assertTrue(main.triangle_area(0,1,2) == 5);
+        main.POINTS = [[0,0], [0,-10], [5,5], [10,-10]]
+        self.assertTrue(main.triangle_area(0,1,3) == 5);
+
+    """
+    Test case for can_be_contained_circle function in module 'main'
+    """
+    def test_can_be_contained_circle(self):
+        p1 = [0, 0]
+        p2 = [0, 1]
+        p3 = [0, 2]
+        r = 1
+        self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
+        p1 = [0, 0]
+        p2 = [0, 10]
+        p3 = [1, 5]
+        r = 5
+        self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
+        p1 = [0, 0]
+        p2 = [0, 0]
+        p3 = [3, -4]
+        r = 2.5
+        self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
+
+    """
     Test case for LIC0 function in module 'main'
     """
     def test_LIC0(self):

@@ -89,7 +89,7 @@ def can_be_contained_circle(p1, p2, p3, radius):
     b = euclidean_dist(p1, p3);
     c = euclidean_dist(p2, p3);
     if(a == 0 or b == 0 or c == 0):
-        return max([a,b,c])/2 < radius #two or more points are equal
+        return max([a,b,c])/2 <= radius #two or more points are equal
 
     A = math.acos((b*b + c*c - a*a)/(2*b*c))
     B = math.acos((a*a + c*c - b*b)/(2*a*c))
@@ -98,13 +98,13 @@ def can_be_contained_circle(p1, p2, p3, radius):
         #triangle is obtuse
         #take longest distance, set center of circle in the middle of it.
         #Compare radius = max distance / 2 with radius.
-        return max([a,b,c])/2 < radius
+        return max([a,b,c])/2 <= radius
     else:
         #triangle is acute
         #calculate the circumradius of the triangle. Found formula online:
         #https://www.mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
         r = a/(2*math.sin(A))
-        return r < radius
+        return r <= radius
 
 def dist_to_line(p1, p2, p3):
     """ Calculates the distance between a line defined by p1 and p2 and a third point p3.
