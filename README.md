@@ -2,7 +2,9 @@
 
 A launch interceptor program is a software which can decide whether an interceptor of an anti-ballistic missile system should be lanuched or not.
 
-This software implements a launch interceptor system based on radar points and different given lanuch parameters. A launch interceptor program decides to launch an interceptor by using several Launch Interceptor Conditions (LIC) as well as different control matrices which determine how these LICs are connected. Currently, the interceptor system use 14 different LICs constrained by user input parameters. These LICs will be used to construct a Conditions Met Vector (CMV). The CMV will be used along with the Logical Connector Matric (LCM) to determine how the LICs are contrained together. The resulting operation is stored into a Preliminary Unlocking Matrix (PUM). The software also use a Preliminary Unlocking Vector (PUV) as user input to represent which LIC actually matter in this lanuch. Finally a Final Unlocking Vector is derived from the PUV and PUM. The system will output "YES" iff all entries in the FUV is true.
+This software implements a launch interceptor system based on radar points and different given lanuch parameters. A launch interceptor program decides to launch an interceptor by using several Launch Interceptor Conditions (LIC) as well as different control matrices which determine how these LICs are connected.
+
+Currently, the interceptor system use 14 different LICs constrained by user input parameters. These LICs will be used to construct a Conditions Met Vector (CMV). The CMV will be used along with the Logical Connector Matric (LCM) to determine how the LICs are contrained together. The resulting operation is stored into a Preliminary Unlocking Matrix (PUM). The software also use a Preliminary Unlocking Vector (PUV) as user input to represent which LIC actually matter in this lanuch. Finally a Final Unlocking Vector is derived from the PUV and PUM. The system will output "YES" iff all entries in the FUV is true.
 
 The input values are stored as a json file called "global.json". They contain the following variables:
 * PI - Value of pi with desired precision, eg. 3.14
@@ -44,8 +46,8 @@ The code can be run by using `python3 main.py`. It can be tested by running `pyt
 
 ## Statement of contributions
 
-Fabian Waxin Borén - Wrote the LIC functions 4, 9, 14 with tests and set up the CIs.
-Gustav Ung - Wrote the LIC functions 1, 6, 11 with tests, drafted the README.
-Love Almgren  - Wrote the LIC functions 3, 8, 13 with tests.
-Ramiz Dündar - Wrote the LIC functions 0, 5, 10 with tests.
-Simon Zlotnik Sirén  - Wrote the LIC functions 2, 7, 12 with tests.
+* Fabian Waxin Borén - Wrote the LIC functions 4, 9, 14 with tests and set up the CIs.
+* Gustav Ung - Wrote the LIC functions 1, 6, 11 with tests, drafted the README.
+* Love Almgren  - Wrote the LIC functions 3, 8, 13 with tests.
+* Ramiz Dündar - Wrote the LIC functions 0, 5, 10 with tests.
+* Simon Zlotnik Sirén  - Wrote the LIC functions 2, 7, 12 with tests.
