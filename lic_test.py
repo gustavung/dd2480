@@ -127,7 +127,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC2 function in module 'main'
     """
     def test_LIC2(self):
-		# contract: The LIC2 function should return true if it is satisfied, else it returns false
+        # contract: The LIC2 function should return true if it is satisfied, else it returns false
         main.EPSILON = 0.5
         main.POINTS = [
             (0, 0), (1, -1)]
@@ -251,7 +251,7 @@ class LICTestCase(unittest.TestCase):
     Test case for LIC7 function in module 'main'
     """
     def test_LIC7(self):
-		# contract: The LIC7 function should return true if it is satisfied, else it returns false
+        # contract: The LIC7 function should return true if it is satisfied, else it returns false
         main.LENGTH1 = 1 # Tests NUMPOINTS < 3
         main.K_PTS = 1
         main.POINTS = [
@@ -349,7 +349,7 @@ class LICTestCase(unittest.TestCase):
        Test case for LIC12 function in module 'main'
     """
     def test_LIC12(self):
-		# contract: The LIC12 function should return true if it is satisfied, else it returns false
+        # contract: The LIC12 function should return true if it is satisfied, else it returns false
         main.LENGTH1 = 1
         main.LENGTH2 = 1
         main.K_PTS = 1
@@ -422,11 +422,11 @@ class LICTestCase(unittest.TestCase):
 
         main.AREA2 = 3000
         self.assertFalse(main.LIC14())
-		
-	""" Test for twelvefirst helper function
-	"""
+
+    """ Test for twelvefirst helper function
+    """
     def test_twelvefirst(self):
-		# contract: The LIC14 function should return true if it is satisfied, else it returns false
+        # contract: The LIC14 function should return true if it is satisfied, else it returns false
         main.LENGTH1 = 1
         main.K_PTS = 2
         main.POINTS = [
@@ -439,10 +439,11 @@ class LICTestCase(unittest.TestCase):
             (0, 0), (0, 0), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.twelvefirst())
-	""" Test for twelvesecond helper function
+    """ 
+	Test for twelvesecond helper function
 	"""
     def test_twelvesecond(self):
-		# contract: The LIC14 function should return true if it is satisfied, else it returns false
+        # contract: The LIC14 function should return true if it is satisfied, else it returns false
         main.LENGTH2 = 10
         main.K_PTS = 2
         main.POINTS = [
