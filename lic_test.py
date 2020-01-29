@@ -65,6 +65,22 @@ class LICTestCase(unittest.TestCase):
         self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
 
     """
+    Test case for dist_to_line function in module 'main'
+    """
+    def test_dist_to_line(self):
+        # contract: The dist_to_line function should return the distance between a line defined by p1 and p2,
+        # and a third point p3.
+        p1 = (3, 3)
+        p2 = (-3, -3)
+        p3 = (0, 5)
+        self.assertEqual(round(main.dist_to_line(p1, p2, p3), 1), 3.5)
+
+        p1 = (15, 7)
+        p2 = (1, 0)
+        p3 = (0, 0)
+        self.assertEqual(round(main.dist_to_line(p1, p2, p3), 1), 0.4)
+
+    """
     Test case for LIC0 function in module 'main'
     """
     def test_LIC0(self):
@@ -245,7 +261,7 @@ class LICTestCase(unittest.TestCase):
 
         main.DIST = 28
         main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
-        self.assertFalse(main.LIC6())
+        self.assertTrue(main.LIC6())
 
     """
     Test case for LIC7 function in module 'main'
