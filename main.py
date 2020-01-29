@@ -18,10 +18,12 @@ E_PTS = PARAMETERS_T["E_PTS"]
 F_PTS = PARAMETERS_T["F_PTS"]
 G_PTS = PARAMETERS_T["G_PTS"]
 K_PTS = PARAMETERS_T["K_PTS"]
+N_PTS = PARAMETERS_T["N_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
 AREA1 = PARAMETERS_T["AREA1"]
 AREA2 = PARAMETERS_T["AREA2"]
+DIST = PARAMETERS_T["DIST"]
 RADIUS1 = PARAMETERS_T["RADIUS1"]
 RADIUS2 = PARAMETERS_T["RADIUS2"]
 LENGTH1 = PARAMETERS_T["LENGTH1"]
@@ -269,7 +271,7 @@ def LIC6():
     for i in range(0, NUMPOINTS-(N_PTS-1)):
         points = POINTS[i:i+N_PTS]
         if points[0] == points[:-1]:
-            condition_set = list(filter(lambda p: euclidian_dist(points[0], p) > DIST, points[1:-1]))
+            condition_set = list(filter(lambda p: euclidean_dist(points[0], p) > DIST, points[1:-1]))
         else:
             condition_set = list((filter(lambda p: dist_to_line(points[0], points[-1], p) > DIST, points[1:-1])))
         if len(condition_set) > 0:
