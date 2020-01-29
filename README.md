@@ -43,6 +43,10 @@ The output will be:
 
 The code can be run by using `python3 main.py`. It can be tested by running `python3 -m unittest lic_test.py`.
 
+## Dependencies
+
+This project uses the math library numpy which can be installed by the command `pip3 install -r requirements.txt` 
+
 
 ## Statement of contributions
 
