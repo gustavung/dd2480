@@ -97,7 +97,7 @@ def twelvefirst():
         which are a distance greater than the length, LENGTH1, apart.
     """
     i = 0
-    j = NUMPOINTS-1
+    j = NUMPOINTS
     while i < j and i+K_PTS < j:
         (x1, x2) = POINTS[i], POINTS[i+K_PTS]
         if euclidean_dist(x1, x2) > LENGTH1:
@@ -111,7 +111,7 @@ def twelvesecond():
         points, that are a distance less than the length, LENGTH2, apart.
     """
     i = 0
-    j = NUMPOINTS-1
+    j = NUMPOINTS
     while i < j and i+K_PTS < j:
         (x1, x2) = POINTS[i], POINTS[i + K_PTS]
         if euclidean_dist(x1, x2) < LENGTH2:
