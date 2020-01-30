@@ -23,4 +23,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run test
       run: |
-        python -m unittest lic_test.py decide_test.py
+        python -m unittest decide_test.py lic_test.py
