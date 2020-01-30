@@ -7,4 +7,4 @@ branches:
 
 install:
  - pip install -r requirements.txt
-script: python -m unittest lic_test.py
+script: python -m unittest lic_test.py decide_test.py
