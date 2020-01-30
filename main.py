@@ -113,14 +113,14 @@ def dist_to_line(p1, p2, p3):
     """ Calculates the distance between a line defined by p1 and p2 and a third point p3.
         It does this by calculating the length of the rejection of the line p3-p1 and p2-p1.
     """
-    s = (p2[0]-p1[0], p2[1]-p1[1])
-    v = (p3[0]-p1[0], p3[1]-p1[1])
-    if (s[0] is 0 and s[1] is 0):
-        return 0
-    scalar = np.dot(v, s)/np.dot(s, s)
-    projection = (s[0]*scalar, s[1]*scalar)
 
-    return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
+    (x1, y1) = p1
+    (x2, y2) = p2
+    (x3, y3) = p3
+
+    numer = abs((y2-y1)*x3 - (x2-x1)*y3 + x2*y1 - y2*x1)
+    denom = math.sqrt(math.pow(y2-y1, 2) + math.pow(x2-x1, 2))
+    return numer/denom
 
 def generate_LIC():
     """ Return the Conditions Met Vector.
@@ -271,7 +271,7 @@ def LIC6():
     condition_set = []
     for i in range(0, NUMPOINTS-(N_PTS-1)):
         points = POINTS[i:i+N_PTS]
-        if points[0] == points[:-1]:
+        if points[0] == points[-1]:
             condition_set = list(filter(lambda p: euclidean_dist(points[0], p) > DIST, points[1:-1]))
         else:
             condition_set = list((filter(lambda p: dist_to_line(points[0], points[-1], p) > DIST, points[1:-1])))
