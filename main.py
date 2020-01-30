@@ -2,6 +2,7 @@ import json
 import math
 import numpy as np
 
+
 f = open("global.json")
 inp = json.load(f)
 
@@ -18,10 +19,12 @@ E_PTS = PARAMETERS_T["E_PTS"]
 F_PTS = PARAMETERS_T["F_PTS"]
 G_PTS = PARAMETERS_T["G_PTS"]
 K_PTS = PARAMETERS_T["K_PTS"]
+N_PTS = PARAMETERS_T["N_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
 AREA1 = PARAMETERS_T["AREA1"]
 AREA2 = PARAMETERS_T["AREA2"]
+DIST = PARAMETERS_T["DIST"]
 RADIUS1 = PARAMETERS_T["RADIUS1"]
 RADIUS2 = PARAMETERS_T["RADIUS2"]
 LENGTH1 = PARAMETERS_T["LENGTH1"]
@@ -373,8 +376,6 @@ def LIC11():
     assert 1 <= G_PTS <= NUMPOINTS
     for i in range(0, NUMPOINTS-(G_PTS+1)):
         if POINTS[i+G_PTS+1][0]-POINTS[i][0] < 0:
-            print(POINTS[i+G_PTS+1])
-            print(POINTS[i])
             return True
     return False
 
@@ -468,9 +469,9 @@ def decide():
     if LAUNCH:
         print("YES")
     else:
-        print ("NO")
+        print("NO")
 
-    return (LAUNCH, CMV, PUM, FUV)
+    return LAUNCH
 
 if __name__ == "__main__":
     decide()
