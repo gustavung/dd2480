@@ -41,7 +41,7 @@ The output will be:
 
 ## Running and testing
 
-The code can be run by using `python3 main.py`. It can be tested by running `python3 -m unittest lic_test.py`.
+The code can be run by using `python3 main.py`. It can be tested by running `python3 -m unittest decide_test.py lic_test.py`.
 
 ## Dependencies
 
