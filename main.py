@@ -2,6 +2,7 @@ import json
 import math
 import numpy as np
 
+
 f = open("global.json")
 inp = json.load(f)
 
@@ -18,10 +19,12 @@ E_PTS = PARAMETERS_T["E_PTS"]
 F_PTS = PARAMETERS_T["F_PTS"]
 G_PTS = PARAMETERS_T["G_PTS"]
 K_PTS = PARAMETERS_T["K_PTS"]
+N_PTS = PARAMETERS_T["N_PTS"]
 Q_PTS = PARAMETERS_T["Q_PTS"]
 QUADS = PARAMETERS_T["QUADS"]
 AREA1 = PARAMETERS_T["AREA1"]
 AREA2 = PARAMETERS_T["AREA2"]
+DIST = PARAMETERS_T["DIST"]
 RADIUS1 = PARAMETERS_T["RADIUS1"]
 RADIUS2 = PARAMETERS_T["RADIUS2"]
 LENGTH1 = PARAMETERS_T["LENGTH1"]
@@ -57,7 +60,7 @@ def twelvefirst():
         which are a distance greater than the length, LENGTH1, apart.
     """
     i = 0
-    j = NUMPOINTS-1
+    j = NUMPOINTS
     while i < j and i+K_PTS < j:
         (x1, x2) = POINTS[i], POINTS[i+K_PTS]
         if euclidean_dist(x1, x2) > LENGTH1:
@@ -72,7 +75,7 @@ def twelvesecond():
         points, that are a distance less than the length, LENGTH2, apart.
     """
     i = 0
-    j = NUMPOINTS-1
+    j = NUMPOINTS
     while i < j and i+K_PTS < j:
         (x1, x2) = POINTS[i], POINTS[i + K_PTS]
         if euclidean_dist(x1, x2) < LENGTH2:
@@ -89,7 +92,7 @@ def can_be_contained_circle(p1, p2, p3, radius):
     b = euclidean_dist(p1, p3);
     c = euclidean_dist(p2, p3);
     if(a == 0 or b == 0 or c == 0):
-        return max([a,b,c])/2 < radius #two or more points are equal
+        return max([a,b,c])/2 <= radius #two or more points are equal
 
     A = math.acos((b*b + c*c - a*a)/(2*b*c))
     B = math.acos((a*a + c*c - b*b)/(2*a*c))
@@ -98,26 +101,26 @@ def can_be_contained_circle(p1, p2, p3, radius):
         #triangle is obtuse
         #take longest distance, set center of circle in the middle of it.
         #Compare radius = max distance / 2 with radius.
-        return max([a,b,c])/2 < radius
+        return max([a,b,c])/2 <= radius
     else:
         #triangle is acute
         #calculate the circumradius of the triangle. Found formula online:
         #https://www.mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
         r = a/(2*math.sin(A))
-        return r < radius
+        return r <= radius
 
 def dist_to_line(p1, p2, p3):
     """ Calculates the distance between a line defined by p1 and p2 and a third point p3.
         It does this by calculating the length of the rejection of the line p3-p1 and p2-p1.
     """
-    s = (p2[0]-p1[0], p2[1]-p1[1])
-    v = (p3[0]-p1[0], p3[1]-p1[1])
-    if (s[0] is 0 and s[1] is 0):
-        return 0
-    scalar = np.dot(v, s)/np.dot(s, s)
-    projection = (s[0]*scalar, s[1]*scalar)
 
-    return np.linalg.norm((v[0]- projection[0], v[1], projection[1]))
+    (x1, y1) = p1
+    (x2, y2) = p2
+    (x3, y3) = p3
+
+    numer = abs((y2-y1)*x3 - (x2-x1)*y3 + x2*y1 - y2*x1)
+    denom = math.sqrt(math.pow(y2-y1, 2) + math.pow(x2-x1, 2))
+    return numer/denom
 
 def generate_LIC():
     """ Return the Conditions Met Vector.
@@ -268,8 +271,8 @@ def LIC6():
     condition_set = []
     for i in range(0, NUMPOINTS-(N_PTS-1)):
         points = POINTS[i:i+N_PTS]
-        if points[0] == points[:-1]:
-            condition_set = list(filter(lambda p: euclidian_dist(points[0], p) > DIST, points[1:-1]))
+        if points[0] == points[-1]:
+            condition_set = list(filter(lambda p: euclidean_dist(points[0], p) > DIST, points[1:-1]))
         else:
             condition_set = list((filter(lambda p: dist_to_line(points[0], points[-1], p) > DIST, points[1:-1])))
         if len(condition_set) > 0:
@@ -373,8 +376,6 @@ def LIC11():
     assert 1 <= G_PTS <= NUMPOINTS
     for i in range(0, NUMPOINTS-(G_PTS+1)):
         if POINTS[i+G_PTS+1][0]-POINTS[i][0] < 0:
-            print(POINTS[i+G_PTS+1])
-            print(POINTS[i])
             return True
     return False
 
@@ -468,9 +469,9 @@ def decide():
     if LAUNCH:
         print("YES")
     else:
-        print ("NO")
+        print("NO")
 
-    return (LAUNCH, CMV, PUM, FUV)
+    return LAUNCH
 
 if __name__ == "__main__":
     decide()

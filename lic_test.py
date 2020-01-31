@@ -5,6 +5,82 @@ import main
 class LICTestCase(unittest.TestCase):
 
     """
+    Test case for euclidean_dist function in module 'main'
+    """
+    def test_euclidean_dist(self):
+        p1 = [0,0];
+        p2 = [0,5];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 5);
+        p1 = [0,0];
+        p2 = [-3,4];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 5);
+        p1 = [0,0];
+        p2 = [0,0];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 0);
+        p1 = [-10,0];
+        p2 = [0,0];
+        self.assertTrue(main.euclidean_dist(p1, p2) == 10);
+
+
+    """
+    Test case for get_length function in module 'main'
+    """
+    def test_get_length(self):
+        main.POINTS = [[0,0], [0,5]]
+        self.assertTrue(main.get_length(0) == 5);
+        main.POINTS = [[0,0], [0,0], [-3,4]]
+        self.assertTrue(main.get_length(1) == 5);
+        main.POINTS = [[0,0], [0,0]]
+        self.assertTrue(main.get_length(0) == 0);
+
+    """
+    Test case for triangle_area function in module 'main'
+    """
+    def text_triangle_area(self):
+        main.POINTS = [[0,0], [0,5], [0, 10]]
+        self.assertTrue(main.triangle_area(0,1,2) == 0);
+        main.POINTS = [[0,0], [0,10], [10,10]]
+        self.assertTrue(main.triangle_area(0,1,2) == 5);
+        main.POINTS = [[0,0], [0,-10], [5,5], [10,-10]]
+        self.assertTrue(main.triangle_area(0,1,3) == 5);
+
+    """
+    Test case for can_be_contained_circle function in module 'main'
+    """
+    def test_can_be_contained_circle(self):
+        p1 = [0, 0]
+        p2 = [0, 1]
+        p3 = [0, 2]
+        r = 1
+        self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
+        p1 = [0, 0]
+        p2 = [0, 10]
+        p3 = [1, 5]
+        r = 5
+        self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
+        p1 = [0, 0]
+        p2 = [0, 0]
+        p3 = [3, -4]
+        r = 2.5
+        self.assertTrue(main.can_be_contained_circle(p1, p2, p3, r));
+
+    """
+    Test case for dist_to_line function in module 'main'
+    """
+    def test_dist_to_line(self):
+        # contract: The dist_to_line function should return the distance between a line defined by p1 and p2,
+        # and a third point p3.
+        p1 = (3, 3)
+        p2 = (-3, -3)
+        p3 = (0, 5)
+        self.assertEqual(round(main.dist_to_line(p1, p2, p3), 1), 3.5)
+
+        p1 = (15, 7)
+        p2 = (1, 0)
+        p3 = (0, 0)
+        self.assertEqual(round(main.dist_to_line(p1, p2, p3), 1), 0.4)
+
+    """
     Test case for LIC0 function in module 'main'
     """
     def test_LIC0(self):
@@ -68,26 +144,26 @@ class LICTestCase(unittest.TestCase):
     """
     def test_LIC2(self):
         # contract: The LIC2 function should return true if it is satisfied, else it returns false
-        main.PARAMETERS_T["EPSILON"] = 0.5  # Tests NUMPOINTS < 3
+        main.EPSILON = 0.5
         main.POINTS = [
             (0, 0), (1, -1)]
         main.NUMPOINTS = len(main.POINTS)
 
         self.assertFalse(main.LIC2())
 
-        main.PARAMETERS_T["EPSILON"] = 0.87
+        main.EPSILON = 0.87
         main.POINTS = [
             (2, 3), (1, 4), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertTrue(main.LIC2())
 
-        main.PARAMETERS_T["EPSILON"] = 0.2
+        main.EPSILON = 0.2
         main.POINTS = [
             (0, 1), (0, 0), (0, -1)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC2())
 
-        main.PARAMETERS_T["EPSILON"] = 0.2 # Tests invalid angle
+        main.EPSILON = 0.2 # Tests invalid angle
         main.POINTS = [
             (1, 1), (0, 0), (0, 0)]
         main.NUMPOINTS = len(main.POINTS)
@@ -185,29 +261,29 @@ class LICTestCase(unittest.TestCase):
 
         main.DIST = 28
         main.POINTS = [(-10, -10), (5, 5), (10, 10), (-10, -10)]
-        self.assertFalse(main.LIC6())
+        self.assertTrue(main.LIC6())
 
     """
     Test case for LIC7 function in module 'main'
     """
     def test_LIC7(self):
         # contract: The LIC7 function should return true if it is satisfied, else it returns false
-        main.PARAMETERS_T["LENGTH1"] = 1  # Tests NUMPOINTS < 3
-        main.PARAMETERS_T["K_PTS"] = 1
+        main.LENGTH1 = 1 # Tests NUMPOINTS < 3
+        main.K_PTS = 1
         main.POINTS = [
             (0, 0), (2, 2)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC7())
 
-        main.PARAMETERS_T["LENGTH1"] = 1
-        main.PARAMETERS_T["K_PTS"] = 2
+        main.LENGTH1 = 1
+        main.K_PTS = 2
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertFalse(main.LIC7())
+        self.assertTrue(main.LIC7)
 
-        main.PARAMETERS_T["LENGTH1"] = 2
-        main.PARAMETERS_T["K_PTS"] = 2
+        main.LENGTH1 = 2
+        main.K_PTS = 2
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3,3)]
         main.NUMPOINTS = len(main.POINTS)
@@ -290,34 +366,35 @@ class LICTestCase(unittest.TestCase):
     """
     def test_LIC12(self):
         # contract: The LIC12 function should return true if it is satisfied, else it returns false
-        main.PARAMETERS_T["LENGTH1"] = 1  # Tests NUMPOINTS < 3
-        main.PARAMETERS_T["LENGTH2"] = 1
-        main.PARAMETERS_T["K_PTS"] = 1
+        main.LENGTH1 = 1
+        main.LENGTH2 = 1
+        main.K_PTS = 1
         main.POINTS = [
             (0, 0), (1, -1)]
         main.NUMPOINTS = len(main.POINTS)
 
         self.assertFalse(main.LIC12())
 
-        main.PARAMETERS_T["LENGTH1"] = 1
-        main.PARAMETERS_T["LENGTH2"] = 4
-        main.PARAMETERS_T["K_PTS"] = 2
+        main.LENGTH1 = 1
+        main.LENGTH2 = 4
+        main.K_PTS = 2
         main.POINTS = [
             (0, 0), (0, 0), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
-        self.assertFalse(main.LIC12())
 
-        main.PARAMETERS_T["LENGTH1"] = 1
-        main.PARAMETERS_T["LENGTH2"] = 1
-        main.PARAMETERS_T["K_PTS"] = 1
+        self.assertTrue(main.LIC12())
+
+        main.LENGTH1 = 1
+        main.LENGTH2 = 1
+        main.K_PTS = 1
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3,3)]
         main.NUMPOINTS = len(main.POINTS)
         self.assertFalse(main.LIC12())
 
-        main.PARAMETERS_T["LENGTH1"] = 5
-        main.PARAMETERS_T["LENGTH2"] = 5
-        main.PARAMETERS_T["K_PTS"] = 1
+        main.LENGTH1 = 5
+        main.LENGTH2 = 5
+        main.K_PTS = 1
         main.POINTS = [
             (0, 0), (2, 2), (0, 0), (3, 3)]
         main.NUMPOINTS = len(main.POINTS)
@@ -361,6 +438,40 @@ class LICTestCase(unittest.TestCase):
 
         main.AREA2 = 3000
         self.assertFalse(main.LIC14())
+
+    """ Test for twelvefirst helper function
+    """
+    def test_twelvefirst(self):
+        # contract: The LIC14 function should return true if it is satisfied, else it returns false
+        main.LENGTH1 = 1
+        main.K_PTS = 2
+        main.POINTS = [
+            (0, 0), (0, 0), (0, 0), (3, 3)]
+        main.NUMPOINTS = len(main.POINTS)
+        self.assertTrue(main.twelvefirst())
+        main.LENGTH1 = 8
+        main.K_PTS = 2
+        main.POINTS = [
+            (0, 0), (0, 0), (0, 0), (3, 3)]
+        main.NUMPOINTS = len(main.POINTS)
+        self.assertFalse(main.twelvefirst())
+    """ 
+	Test for twelvesecond helper function
+	"""
+    def test_twelvesecond(self):
+        # contract: The LIC14 function should return true if it is satisfied, else it returns false
+        main.LENGTH2 = 10
+        main.K_PTS = 2
+        main.POINTS = [
+            (0, 0), (0, 0), (0, 0), (3, 3)]
+        main.NUMPOINTS = len(main.POINTS)
+        self.assertTrue(main.twelvesecond())
+        main.LENGTH2 = 1
+        main.K_PTS = 2
+        main.POINTS = [
+            (0, 0), (0, 0), (0, 0), (3, 3)]
+        main.NUMPOINTS = len(main.POINTS)
+        self.assertFalse(main.twelvefirst())
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,61 @@
+{
+    "PI" : 3.1415926535,
+    "PARAMETERS_T" :
+    {
+        "LENGTH1" : 10,
+        "RADIUS1" : 2.5,
+        "EPSILON" : 0.87,
+        "AREA1" : 18,
+        "Q_PTS" : 4,
+        "QUADS" : 2,
+        "DIST" : 2,
+        "N_PTS" : 3,
+        "K_PTS" : 2,
+        "A_PTS" : 3,
+        "B_PTS" : 1,
+        "C_PTS" : 1,
+        "D_PTS" : 1,
+        "E_PTS" : 1,
+        "F_PTS" : 1,
+        "G_PTS" : 7,
+        "LENGTH2" : 4,
+        "RADIUS2" : 10,
+        "AREA2" : 40
+    },
+    "NUMPOINTS" : 10,
+    "POINTS" : [
+        [1,3], [2,2], [-9, 5], [-1,-5],
+        [1,2], [4,2], [3,7], [2,2],
+        [3,2], [1,4], [0,0], [3,3],
+        [0,0], [1,0], [1,2], [4,2],
+        [7,8], [-12,19], [-12,-22], [4,2],
+        [0,0], [1,-1], [3,6], [2,1],
+        [0,0], [2,2], [-1,2], [-2,-3],
+        [0,0], [0,0], [0,0], [3,3],
+        [0,0], [-1,-1], [-1,-1], [1,2],
+        [3,3], [-12,19], [1,1], [51,91], [1,3],
+        [0,0], [1,-1], [0,0], [3,1], [0,0]
+    ],
+    "LCM" :
+    [
+        ["ANDD", "ORR", "ANDD", "ORR", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ORR"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", ""], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ORR", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ORR", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"], ["ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD", "ANDD"]
+    ],
+  "PUV" :
+    [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+    ]
+}
